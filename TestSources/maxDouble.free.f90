@@ -11,12 +11,12 @@ SUBROUTINE oad_s_max_d(FIRST, SECOND, RESULT)
   ENDIF
 END SUBROUTINE
 
-program nested
+program maxDouble
   implicit none
   double precision x,y
 
   x = 3.1415
   y = max(x,8.90)
   write(*,*) 'y = ',y
-end program nested
+end program maxDouble
 
