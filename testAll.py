@@ -270,7 +270,7 @@ def populateExamplesList(args):
 
 
 
-def runTest(exName,exNum,totalNum,compiler,optimizeFlag):
+def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     import filecmp
     preProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing','preProcess.py')
     sys.stdout.flush()
@@ -334,7 +334,7 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag):
     preprocessedOutput = basename+'.pre.out'
 
     # compile and run original
-    cmd=compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+' -o '+originalExec+' '+exName
+    cmd=compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+' -o '+originalExec+' '+exName+' '+extraObjs
     if globalVerbose: print cmd
     if (os.system(cmd)): raise MakeError, "Error while executing \"" + cmd + "\""
 
@@ -355,7 +355,7 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag):
     fileCompare(preprocessedSource,'','')
 
     # compile and run preprocessed
-    cmd=compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+" -o " +preprocessedExec+' '+preprocessedSource
+    cmd=compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+" -o " +preprocessedExec+' '+preprocessedSource+' '+extraObjs
     if globalVerbose: print cmd
     if (os.system(cmd)): raise MakeError, "Error while executing \"" + cmd + "\""
     cmd='./'+preprocessedExec+' > '+preprocessedOutput
@@ -375,6 +375,7 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag):
         failCountAdjusted=True
 
 def main():
+    import glob
     from optparse import OptionParser
     usage = '%prog [options] '
     compilers=['ifort','gfortran','g95','f95','openf95']
@@ -441,15 +442,19 @@ def main():
         optimizeFlag='-O0 -g'
         if options.optimize:
 	  optimizeFlag='-O3'
-        cmd=options.compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+" -c "+ "Extras/w2f__types.f90"
-        if (os.system(cmd)):
-            raise MakeError, "Error while executing \"" + cmd + "\""
+        extraFiles = glob.glob(os.path.join('Extras','*.f90'))
+        extraObjs=""
+        for extraFile in extraFiles:
+            cmd=options.compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+" -c "+ extraFile
+            if (os.system(cmd)):
+                raise MakeError, "Error while executing \"" + cmd + "\""
+            extraObjs+=(os.path.splitext(os.path.basename(extraFile)))[0]+".o "
 	(examples,rangeStart,rangeEnd) = populateExamplesList(args[0:])
 	# Run the examples
 	j = rangeStart-1
 	while (j < rangeEnd):
 	    try:
-		runTest(examples[j],j+1,len(examples), options.compiler, optimizeFlag)
+		runTest(examples[j],j+1,len(examples), options.compiler, optimizeFlag, extraObjs)
 	    except ConfigError, errMsg:
 		print "ERROR (environment configuration) in test %i of %i (%s): %s" % (j+1,len(examples),examples[j],errMsg)
 	        globalNewFailCount+=1
