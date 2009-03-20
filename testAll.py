@@ -443,6 +443,8 @@ def main():
         if options.optimize:
 	  optimizeFlag='-O3'
         extraFiles = glob.glob(os.path.join('Extras','*.f90'))
+        extraFiles.sort()
+        extraFiles.reverse()
         extraObjs=""
         for extraFile in extraFiles:
             cmd=options.compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+" -c "+ extraFile
