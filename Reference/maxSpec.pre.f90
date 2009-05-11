@@ -8,13 +8,13 @@
 	write(*,*) 'y = ',y
 	end program 
 
-     subroutine oad_s_max_d(a,b,r)
-       double precision :: a
-       double precision :: b
-       double precision :: r
-       if (a>b) then
-         r = a
-       else
-         r = b
-       endif
-     end
+      subroutine oad_s_max_d(a,b,r)
+        double precision :: a
+        double precision :: b
+        double precision :: r
+        if (a>b) then
+          r = a
+        else
+          r = b
+        endif
+      end
