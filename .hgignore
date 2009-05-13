@@ -4,3 +4,7 @@ syntax: glob
 *.mod
 *.mod-whirl
 *.MOD
+*.orig
+syntax: regexp
+^[^/]+\.f90
+^[^/]+\.out
