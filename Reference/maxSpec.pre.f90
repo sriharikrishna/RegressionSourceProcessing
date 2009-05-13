@@ -9,9 +9,9 @@
 	end program 
 
       subroutine oad_s_max_d(a,b,r)
-        double precision :: a
-        double precision :: b
-        double precision :: r
+        double precision,intent(in) :: a
+        double precision,intent(in) :: b
+        double precision,intent(out) :: r
         if (a>b) then
           r = a
         else
