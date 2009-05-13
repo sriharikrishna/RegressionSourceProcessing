@@ -1,8 +1,5 @@
 syntax: glob
-./*.f90
-./*.f
 *.o
-./*.out
 *.run
 *.mod
 *.mod-whirl
