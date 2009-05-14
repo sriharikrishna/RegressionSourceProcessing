@@ -7,4 +7,5 @@ syntax: glob
 *.orig
 syntax: regexp
 ^[^/]+\.f90
+^[^/]+\.f
 ^[^/]+\.out
