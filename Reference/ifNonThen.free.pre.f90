@@ -9,7 +9,7 @@ program ifNonThen
   if (x.le.oad_ctmp0) then
     call oad_s_max_d(x,8.90D0,oad_ctmp1)
     y = oad_ctmp1
-endif
+  endif
   write(*,*) 'y = ',y
 end program ifNonThen
 
