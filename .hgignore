@@ -5,6 +5,7 @@ syntax: glob
 *.mod-whirl
 *.MOD
 *.orig
+*~
 syntax: regexp
 ^[^/]+\.f90
 ^[^/]+\.f
