@@ -1,0 +1,1 @@
+the preprocessor is not hoisting it (see http://newtrac.mcs.anl.gov/projects/openAD/ticket/10 )
