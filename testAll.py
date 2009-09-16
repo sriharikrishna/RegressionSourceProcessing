@@ -214,7 +214,6 @@ def numberedList(list):
 def populateExamplesList(args):
     import glob
     cleanUpFiles = glob.glob("*pre*")
-#    cleanUpFiles = cleanUpFiles + glob.glob("*.B")
     for i in cleanUpFiles:
         os.remove(i)
     allExamples = glob.glob(os.path.join("TestSources","*.f"))
@@ -299,61 +298,50 @@ def populateExamplesList(args):
     return (examples,rangeStart,rangeEnd)
 
 
+def shouldRunTest(testFile) :
+    '''at this point we assume that the reference file doesn't exist, and globalIgnoreFailingCases is False'''
+    refFile = os.path.join("Reference",testFile)
+    failFile = os.path.join("Reference",testFile+'.FAIL')
+    if os.path.exists(refFile) and not os.path.exists(failFile) :
+        return True
+    if os.path.exists(refFile) :
+        sys.stdout.write("NOTE: both a reference file and a failure reason exist\n")
+        sys.stdout.flush()
+    if os.path.exists(failFile) :
+        global globalKnownFailCount
+        globalKnownFailCount += 1
+        sys.stdout.write("   failure reason:")
+        sys.stdout.flush()
+        os.system("cat "+failFile)
+        if globalBatchMode :
+            sys.stdout.write("skipping test (on account of globalBatchMode)\n")
+            return False
+        if globalOfferAcceptAsDefault and raw_input('run it anyway? (y)/n: ') != 'n' :
+            sys.stdout.flush()
+            global globalNewFailCount
+            globalNewFailCount -= 1
+            return True
+        elif raw_input('run it anyway? y/(n): ') == 'y' :
+            sys.stdout.flush()
+            global globalNewFailCount
+            globalNewFailCount -= 1
+            return True
+        else :
+            sys.stdout.write("skipping test (on account of user input)\n")
+            return False
+    else :
+        return True
+
 
 def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     import filecmp
-    preProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing','preProcess.py')
-    postProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing','postProcess.py')
-    sys.stdout.flush()
-    basename,ext=os.path.splitext(exName)
-    failCountAdjusted=False
-    haveRef=os.path.exists(os.path.join('Reference',basename+'.pre'+ext))
-    if not haveRef :
-        if globalIgnoreFailingCases : 
-            printSep("*","** skipping %i of %i (%s) - no reference file" % (exNum,totalNum,exName),sepLength)
-            if (os.path.exists(os.path.join('Reference',exName+'.FAIL'))):
-                sys.stdout.write("   failure reason:")
-                sys.stdout.flush()
-                os.system("cat "+os.path.join('Reference',exName+'.FAIL'))
-            return 0
-        else: 
-            printSep("*","** testing %i of %i (%s)" % (exNum,totalNum,exName),sepLength)
-        if (os.path.exists(os.path.join('Reference',exName+'.FAIL'))):
-                sys.stdout.write("   failure reason:")
-                sys.stdout.flush()
-                os.system("cat "+os.path.join('Reference',exName+'.FAIL'))
-	sys.stdout.write("   reference file: "+basename+'.pre'+ext+' unavailable')
-	if not (globalBatchMode):
-            answer=""
-            if globalAcceptAll:
-                answer="y"
-            else:    
-                if (globalOfferAcceptAsDefault) :
-                    answer = (raw_input(", run it anyway? (y)/n: "))
-                    if (answer != "n") :
-                        answer="y"
-                else:
-                    answer = (raw_input(", run it anyway? y/(n): "))
-                    if (answer != "y") :
-                        answer="n"
-            if (answer == "n"):
-                sys.stdout.flush()
-		return 0
-	else:
-            if ( not globalAcceptAll): 
-                sys.stdout.write("\n")
-                sys.stdout.flush()
-                return 0
-        global globalKnownFailCount
-        globalKnownFailCount+=1
-        global globalNewFailCount
-        globalNewFailCount-=1
-        failCountAdjusted=True
-    else:
-        printSep("*","** testing %i of %i (%s)" % (exNum,totalNum,exName),sepLength)
+    printSep("*","** testing %i of %i (%s)" % (exNum,totalNum,exName),sepLength)
     cmd="ln -sf "+os.path.join("TestSources",exName) + " " + exName
     if runCmd(cmd): raise CommandError, cmd
 
+    preProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing','preProcess.py')
+    postProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing','postProcess.py')
+    basename,ext=os.path.splitext(exName)
     originalSource = basename+ext
     preprocessedSource = basename+'.pre'+ext
     postprocessedSource = basename+'.pre.post'+ext
@@ -364,10 +352,11 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     preprocessedOutput = basename+'.pre.out'
     postprocessedOutput = basename+'.pre.post.out'
 
+    if not shouldRunTest(preprocessedSource) :
+        return
     # compile and run original
     cmd=compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+' -o '+originalExec+' '+exName+' '+extraObjs
     if runCmd(cmd): raise CommandError, cmd
-
     cmd='./'+originalExec+' > '+originalOutput
     if runCmd(cmd): raise CommandError, cmd
     fileCompare(originalOutput)
@@ -390,12 +379,12 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     if (filecmp.cmp(originalOutput,preprocessedOutput)!=1):
         raise ComparisonError,'diff '+originalOutput+' '+preprocessedOutput
 
-    # perform postprocessing
+    # Postprocessing
+    if not shouldRunTest(postprocessedSource) :
+        return
     cmd = postProcess+' '+preprocessedSource+' '+freeFlag+'--freeOutput -o '+postprocessedSource+verbosePrePost
     if runCmd(cmd): raise CommandError, cmd
     fileCompare(postprocessedSource)
-
-    # compile and run postprocessed
     cmd =compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+" -o " +postprocessedExec+' '+postprocessedSource+' '+extraObjs
     if runCmd(cmd): raise CommandError, cmd
     cmd='./'+postprocessedExec+' > '+postprocessedOutput
@@ -403,13 +392,9 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     if (filecmp.cmp(originalOutput,postprocessedOutput) != 1):
         raise ComparisonError,'diff '+originalOutput+' '+postprocessedOutput
 
-    printSep("*","",sepLength)
     global globalOkCount
     globalOkCount+=1
-    if failCountAdjusted:
-        globalKnownFailCount-=1
-        globalNewFailCount+=1
-        failCountAdjusted=True
+
 
 def main():
     import glob
@@ -538,6 +523,7 @@ def main():
 		if globalBatchMode or \
                    raw_input("Do you want to continue? (y)/n: ") == "n" :
 		    return -1
+            printSep("*","",sepLength)
 	    j = j + 1
         # if we have updated any of the reference output, also update the version information for all the components of OpenAD
         if globalUpdatedReferenceFlag:
