@@ -299,7 +299,6 @@ def populateExamplesList(args):
 
 
 def shouldRunTest(testFile) :
-    '''at this point we assume that the reference file doesn't exist, and globalIgnoreFailingCases is False'''
     refFile = os.path.join("Reference",testFile)
     failFile = os.path.join("Reference",testFile+'.FAIL')
     if os.path.exists(refFile) and not os.path.exists(failFile) :
@@ -313,8 +312,8 @@ def shouldRunTest(testFile) :
         sys.stdout.write("   failure reason:")
         sys.stdout.flush()
         os.system("cat "+failFile)
-        if globalBatchMode :
-            sys.stdout.write("skipping test (on account of globalBatchMode)\n")
+        if globalBatchMode or globalIgnoreFailingCases:
+            sys.stdout.write("skipping test\n")
             return False
         if globalOfferAcceptAsDefault and raw_input('run it anyway? (y)/n: ') != 'n' :
             sys.stdout.flush()
