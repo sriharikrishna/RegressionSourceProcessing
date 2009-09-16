@@ -11,11 +11,12 @@ globalBatchMode=False
 globalIgnoreFailingCases=False
 globalOfferAcceptAsDefault=False
 globalAcceptAll=False
+globalDeclineAll = False
 globalVerbose=False
-globalUnstructured=False
 globalOkCount=0
 globalKnownFailCount=0
 globalNewFailCount=0
+globalUpdatedReferenceFlag = False
 globalDiffCmd='diff'
 
 class MultiColumnOutput:
@@ -32,9 +33,7 @@ class MultiColumnOutput:
           x = fcntl.ioctl(fd_stdout, termios.TIOCGWINSZ, s)
           (rows,cols,xPix,yPix)=struct.unpack("HHHH", x)
 	except IOError:
-	  if globalVerbose:
-	    sys.stderr.write("Error: cannot detect terminal width\n")
-	    sys.stderr.flush()
+          debug("Error: cannot detect terminal width\n")
         return cols
 
     class ColumnInfo:
@@ -97,6 +96,10 @@ class MultiColumnOutput:
             thisRow+=1
         sys.stdout.flush()
 
+class CommandError(Exception):
+    """Exception thrown when a system command fails"""
+
+
 class ComparisonError(Exception):
     """Exception thrown when the output comparison sees differences"""
 
@@ -109,63 +112,84 @@ class CommandLineError(Exception):
 class ConfigError(Exception):
     """Exception thrown when there is a problem with the environment configuration"""
 
-def fileCompare(fcfileName,fcmode,ignoreString):
-    referenceFile = os.path.join("Reference",fcmode + fcfileName)
-    if not (os.path.exists(referenceFile)):
-	sys.stdout.write("   "+referenceFile +" not available")
-	if not (globalBatchMode):
-            answer=""
-            if globalAcceptAll:
-                answer="y"
-            else:    
-                if (globalOfferAcceptAsDefault) :
-                    answer = (raw_input(", copy and hg add it? (y)/n: "))
-                    if (answer != "n") :
-                        answer="y"
-                else:
-                    answer = (raw_input(", copy and hg add it? y/(n): "))
-                    if (answer != "y") :
-                        answer="n"
-            if (answer == "n"):
-		sys.stdout.write("   cannot verify %s\n" % fcfileName)
-                sys.stdout.flush()
-		return 0
-	    else:
-		shutil.copy(fcfileName,referenceFile)
-		if (os.system("hg add "+referenceFile)):
-		    raise RuntimeError, "\"hg add "+referenceFile+" not successful" 
-	else: # BATCHMODE
-	    sys.stdout.write("\n")
-            sys.stdout.flush()
-            return 0
-    cmd="diff "
-    if (ignoreString != '') : 
-	cmd+="-I '"+ignoreString+"' "
-    cmd+=fcfileName+" "+referenceFile        
-    hasDiff = os.system(cmd+" > /dev/null")
-    if (hasDiff == 512):
-	raise RuntimeError, "command "+cmd+" not successful"
-    elif (hasDiff != 0):
-	if not (globalBatchMode):
-            os.system(globalDiffCmd+" "+fcfileName+" "+referenceFile)
-	sys.stdout.write("   Transformation -- diff "+fcfileName+" "+referenceFile+"\n")
-	if not (globalBatchMode):
-            answer=""
-            if globalAcceptAll:
-                answer="y"
-            else:    
-                if (globalOfferAcceptAsDefault) :
-                    answer = raw_input("   accept/copy new %s to %s? (y)/n: " % (fcfileName,referenceFile))
-                    if (answer != "n"):
-                        answer="y"
-                else:
-                    answer = raw_input("   accept/copy new %s to %s? y/(n): " % (fcfileName,referenceFile))
-                    if (answer != "y"):
-                        answer="n"
-            if (answer == "n"):
-		sys.stdout.write("   skipping change\n")
-	    else:
-		shutil.copy(fcfileName,referenceFile)
+
+def debug(debugMessage):
+    if globalVerbose:
+        sys.stdout.write(debugMessage)
+        sys.stdout.flush()
+
+
+def runCmd(cmd):
+    debug('running "'+cmd+'"...\n')
+    return os.system(cmd)
+
+
+def verifyFile(aFile):
+    if not (os.path.exists(aFile)):
+        raise ConfigError, 'file '+aFile+' NOT verified: doesn\'t exist'
+
+
+def queryFileCopy(queryStr):
+    sys.stdout.write(queryStr+' ')
+    if globalAcceptAll:
+        sys.stdout.write(' (accepted on account of globalAcceptAll)\n')
+        sys.stdout.flush()
+        return 'y'
+    elif globalDeclineAll:
+        sys.stdout.write(' (declined on account of globalDeclineAll)\n')
+        sys.stdout.flush()
+        return 'n'
+    else:
+        answer = ''
+        if (globalOfferAcceptAsDefault):
+            answer = raw_input(' (y)/n: ')
+            if (answer != 'n'):
+                answer = 'y'
+        else:
+            answer = raw_input(' y/(n): ')
+            if (answer != 'y'):
+                answer = 'n'
+        return answer
+
+
+def refFileCopy(newFile,refFile):
+    sys.stdout.write(refFile+' not available')
+    sys.stdout.flush()
+    answer = queryFileCopy(', copy and hg add it?')
+    if (answer == "n"):
+        return 1
+    else:
+        global globalUpdatedReferenceFlag
+        globalUpdatedReferenceFlag = True
+        shutil.copy(newFile,refFile)
+        cmd="hg add "+refFile
+        if runCmd(cmd): raise CommandError, cmd
+        return 0
+
+
+def fileCompare(newFile,ignoreString=None):
+    verifyFile(newFile)
+    refFile = os.path.join("Reference",newFile)
+    # no reference file: ask whether we want to copy the new file and hg add it as the reference
+    if not (os.path.exists(refFile)):
+        refFileCopy(newFile,refFile)
+    else:
+        cmd="diff "
+        if (ignoreString) : cmd+="-I '"+ignoreString+"' "
+        cmd += newFile+' '+refFile        
+        hasDiff = runCmd(cmd+" > /dev/null")
+        if (hasDiff == 512):
+            raise CommandError, "command "+cmd+" not successful"
+        elif (hasDiff != 0):
+            detailedDiffCmd = globalDiffCmd+' '+newFile+' '+refFile
+            if runCmd(detailedDiffCmd) not in [0,256]: raise CommandError, detailedDiffCmd
+            sys.stdout.write('Transformation -- '+detailedDiffCmd+'\n')
+            if (queryFileCopy('   accept/copy new '+newFile+' to '+refFile+'?') == 'n'):
+                sys.stdout.write('skipping change\n')
+            else:
+                global globalUpdatedReferenceFlag
+                globalUpdatedReferenceFlag = True
+                shutil.copy(newFile,refFile)
     sys.stdout.flush()
 
 
@@ -279,6 +303,7 @@ def populateExamplesList(args):
 def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     import filecmp
     preProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing','preProcess.py')
+    postProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing','postProcess.py')
     sys.stdout.flush()
     basename,ext=os.path.splitext(exName)
     failCountAdjusted=False
@@ -327,51 +352,57 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     else:
         printSep("*","** testing %i of %i (%s)" % (exNum,totalNum,exName),sepLength)
     cmd="ln -sf "+os.path.join("TestSources",exName) + " " + exName
-    if globalVerbose :
-        print cmd
-    if (os.system(cmd)):
-	raise MakeError, "Error while executing \"" + cmd + "\""
+    if runCmd(cmd): raise CommandError, cmd
 
     originalSource = basename+ext
-    originalExec = basename+'.run'
-    originalOutput = basename+'.out'
     preprocessedSource = basename+'.pre'+ext
+    postprocessedSource = basename+'.pre.post'+ext
+    originalExec = basename+'.run'
     preprocessedExec = basename+'.pre.run'
+    postprocessedExec = basename+'.pre.post.run'
+    originalOutput = basename+'.out'
     preprocessedOutput = basename+'.pre.out'
+    postprocessedOutput = basename+'.pre.post.out'
 
     # compile and run original
     cmd=compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+' -o '+originalExec+' '+exName+' '+extraObjs
-    if globalVerbose: print cmd
-    if (os.system(cmd)): raise MakeError, "Error while executing \"" + cmd + "\""
+    if runCmd(cmd): raise CommandError, cmd
 
     cmd='./'+originalExec+' > '+originalOutput
-    if globalVerbose: print cmd
-    if (os.system(cmd)): raise MakeError, "Error while executing \"" + cmd + "\""
-    fileCompare(originalOutput,'','')
+    if runCmd(cmd): raise CommandError, cmd
+    fileCompare(originalOutput)
 
     # set free/fixed
     freeFlag = re.search('free',basename) and '--free ' or ''
     # set verbose
-    verbosePreProcess = globalVerbose and ' -v' or ''
+    verbosePrePost = globalVerbose and ' -v' or ''
 
     # perform preprocessing
-    cmd=preProcess+' '+originalSource+' '+freeFlag+'-o '+preprocessedSource+verbosePreProcess
-    if globalVerbose: print cmd
-    if (os.system(cmd)): raise MakeError, "Error while executing \"" + cmd + "\""
-    fileCompare(preprocessedSource,'','')
+    cmd=preProcess+' '+originalSource+' '+freeFlag+'-o '+preprocessedSource+verbosePrePost
+    if runCmd(cmd): raise CommandError, cmd
+    fileCompare(preprocessedSource)
 
     # compile and run preprocessed
     cmd=compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+" -o " +preprocessedExec+' '+preprocessedSource+' '+extraObjs
-    if globalVerbose: print cmd
-    if (os.system(cmd)): raise MakeError, "Error while executing \"" + cmd + "\""
+    if runCmd(cmd): raise CommandError, cmd
     cmd='./'+preprocessedExec+' > '+preprocessedOutput
-    if globalVerbose: print cmd
-    if (os.system(cmd)): raise MakeError, "Error while executing \"" + cmd + "\""
-    fileCompare(preprocessedOutput,'','')
-
-    # compare results
+    if runCmd(cmd): raise CommandError, cmd
     if (filecmp.cmp(originalOutput,preprocessedOutput)!=1):
         raise ComparisonError,'diff '+originalOutput+' '+preprocessedOutput
+
+    # perform postprocessing
+    cmd = postProcess+' '+preprocessedSource+' '+freeFlag+'--freeOutput -o '+postprocessedSource+verbosePrePost
+    if runCmd(cmd): raise CommandError, cmd
+    fileCompare(postprocessedSource)
+
+    # compile and run postprocessed
+    cmd =compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+" -o " +postprocessedExec+' '+postprocessedSource+' '+extraObjs
+    if runCmd(cmd): raise CommandError, cmd
+    cmd='./'+postprocessedExec+' > '+postprocessedOutput
+    if runCmd(cmd): raise CommandError, cmd
+    if (filecmp.cmp(originalOutput,postprocessedOutput) != 1):
+        raise ComparisonError,'diff '+originalOutput+' '+postprocessedOutput
+
     printSep("*","",sepLength)
     global globalOkCount
     globalOkCount+=1
@@ -400,6 +431,9 @@ def main():
                    action='store_true',default=False)
     opt.add_option('-A','--acceptAll',dest='acceptAll',
                    help="accept all changes without confirmation",
+                   action='store_true',default=False)
+    opt.add_option('-D','--declineAll',dest='declineAll',
+                   help="decline all changes without confirmation",
                    action='store_true',default=False)
     opt.add_option('-b','--batchMode',dest='batchMode',
                    help="run in batchMode suppressing output",
@@ -435,15 +469,15 @@ def main():
         if options.acceptAll :
             global globalAcceptAll
             globalAcceptAll=True
+        if options.declineAll:
+            global globalDeclineAll
+            globalDeclineAll = True
         if options.diff :
             global globalDiffCmd
             globalDiffCmd=options.diff 
         if options.verbose :
             global globalVerbose
             globalVerbose=True
-        if options.unstructured :
-            global globalUnstructured
-            globalUnstructured=True
         if options.optimize :
             os.environ['OPTIMIZE']='true'
 	if not (os.environ.has_key('OPENADFORTTK_BASE')):
@@ -490,15 +524,29 @@ def main():
 		if not (globalBatchMode):
 		    if (raw_input("Do you want to continue? (y)/n: ") == "n"):
 			return -1
-	    except RuntimeError, errMsg:
-		print "ERROR in test %i of %i (%s): %s." % (j+1,len(examples),examples[j],errMsg)
+            except CommandError, cmd:
+                print 'ERROR in test %i of %i (%s): CommandError while running "%s"' % (j+1,len(examples),examples[j],cmd)
 	        globalNewFailCount+=1
 		if not (globalBatchMode):
 		    if (raw_input("Do you want to continue? (y)/n: ") == "n"):
 			return -1
 		else:
 			return -1
+	    except RuntimeError, errMsg:
+		print "ERROR in test %i of %i (%s): %s." % (j+1,len(examples),examples[j],errMsg)
+	        globalNewFailCount+=1
+		if globalBatchMode or \
+                   raw_input("Do you want to continue? (y)/n: ") == "n" :
+		    return -1
 	    j = j + 1
+        # if we have updated any of the reference output, also update the version information for all the components of OpenAD
+        if globalUpdatedReferenceFlag:
+            openadStatusCmd = os.path.join(os.environ['OPENADROOT'],'bin','openadStatus')
+            cmd = openadStatusCmd+' -ld | grep -v Regression | grep -v Examples | sed "s|\.\./OpenAD|OpenAD   |" > '+os.path.join('Reference','versionInfo.txt')
+            if runCmd(cmd): raise CommandError, cmd
+    except CommandError, cmd:
+	print 'CommandError: error while running "'+str(cmd)+'"\n'
+	return -1
     except ConfigError, errMsg:
 	print "ERROR (environment configuration):",errMsg
 	return -1

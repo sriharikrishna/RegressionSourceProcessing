@@ -5,27 +5,26 @@
 !       Date: $Date: 2007/11/01 14:51:19 $
 !       State: $State: Stab $
 !       Locker: $Locker:  $
-
+        
         implicit none
-
-        real,parameter :: ad=3.0D0
+        
+        real, parameter :: ad = 3.0D0
         private
-        public :: oad_s_f
+        public :: f
         
         contains
-        subroutine oad_s_f(x,f)
+        function f(x)
 !         third order bickley function by the rational expansion of
 !         pomentale and gargantini
-          double precision,intent(out) :: f
-          double precision :: x
-          if (x<=0) then
+          double precision :: x,f
+          if (x <= 0) then
             f = 1.0D0
-          elseif (x<=39) then
+          else if (x <= 39) then
             f = 2.0D0
           else
             f = ad
           end if
-        end subroutine oad_s_f
+        end function f
       end module theModule
 
       program moduleContainsPublicFunction
