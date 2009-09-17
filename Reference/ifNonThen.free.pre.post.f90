@@ -1,6 +1,6 @@
 program ifNonThen
   implicit none
-  double precision :: x,y
+  double precision x,y
   double precision :: oad_ctmp0
   double precision :: oad_ctmp1
 

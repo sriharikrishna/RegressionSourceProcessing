@@ -5,9 +5,9 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 program arrays
-  double precision,dimension(20) :: x
+  double precision, dimension(20) :: x
   double precision :: y
-  integer,dimension(10) :: ix
+  integer, dimension(10) :: ix
   integer :: i
 
   x = 2.5

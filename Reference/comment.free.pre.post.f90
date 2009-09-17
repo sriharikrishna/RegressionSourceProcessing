@@ -1,6 +1,6 @@
 program maxDouble
-  implicit none
-  double precision :: x,y
+  implicit none ! c1
+  double precision x,y ! c2
   double precision :: oad_ctmp0
 ! ! c3
   x = 3.1415D0

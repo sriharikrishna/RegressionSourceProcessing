@@ -1,7 +1,7 @@
        program main
-       real,dimension(0:5) :: b=(/1.,2.,3.,4.,5.,6./)
-       real,dimension(0:5) :: c=(/3.,0.,4.,0.,5.,6./)
-       real,dimension(0:5) :: a
+       real, dimension (0:5) :: b=(/1. , 2., 3., 4., 5., 6./)
+       real, dimension (0:5) :: c=(/3., 0., 4., 0., 5., 6./)
+       real, dimension (0:5) :: a
 
           where (c/=0)
            a = b/c

@@ -1,6 +1,6 @@
 program maxDouble
   implicit none
-  double precision :: x,y
+  double precision x,y
   double precision :: oad_ctmp0
 
   x = 3.1415D0

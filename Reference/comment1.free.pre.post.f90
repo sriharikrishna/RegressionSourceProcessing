@@ -1,6 +1,6 @@
 program maxDouble
-  double precision :: x
-  integer :: i
+  double precision x 
+  integer i
   x = 3.D0
   if (x>2.0D0) then
     x = x-1.0D0

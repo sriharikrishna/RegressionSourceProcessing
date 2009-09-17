@@ -29,10 +29,10 @@
 
 ! Fortran 77 Solution
 subroutine compute1()
-     real :: x
-     real :: a(20),b(20),c(20)
-     integer :: ti(5)
-     real :: tr(5)
+     REAL x
+     REAL a(20), b(20), c(20)
+     INTEGER ti(5)
+     REAL    tr(5)
 
      x = 5
 
@@ -58,7 +58,7 @@ end subroutine
 subroutine compute2()
   implicit none
   real :: x
-  real,dimension(20) :: a,b,c
+  real, dimension(20) :: a, b, c
   x = 5
 
   a = x
@@ -68,7 +68,7 @@ subroutine compute2()
   write(*,*) 'a =',a
 end subroutine
 program f77_f90_arrays
-  double precision :: x,y
+  double precision :: x, y
   x = 2
   y = 8
 
