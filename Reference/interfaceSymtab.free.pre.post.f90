@@ -1,10 +1,16 @@
-module psget_I
-  interface
-    real(KIND(0.0D0)) function psget(I)
-      integer,INTENT(IN) :: I
+MODULE psget_I
+  INTERFACE
+    REAL(KIND(0.0D0)) FUNCTION psget (I)
+      INTEGER, INTENT(IN) :: I
     END FUNCTION psget
-  end interface
+    subroutine oad_s_psget(I,psget)
+    real(KIND(0.0D0)),intent(out) :: psget
+      INTEGER, INTENT(IN) :: I
+    end subroutine
+
+  END INTERFACE
 END MODULE
+
 program interfaceSymtab
   use psget_I
 use OAD_active

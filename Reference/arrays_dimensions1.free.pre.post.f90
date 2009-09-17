@@ -7,13 +7,13 @@
 program array_dimensions
 
   implicit none
-  real,dimension(10) :: a
-  real,dimension(10,10) :: b
-  real,dimension(10,10,10) :: c
-  real,dimension(10,10,10,10) :: d
-  real,dimension(10,10,10,10,10) :: e
-  real,dimension(10,10,10,10,10,10) :: f
-  real,dimension(10,10,10,10,10,10,10) :: g
+  real, dimension(10) :: a
+  real, dimension(10,10) :: b
+  real, dimension(10,10,10) :: c
+  real, dimension(10,10,10,10) :: d
+  real, dimension(10,10,10,10,10) :: e
+  real, dimension(10,10,10,10,10,10) :: f
+  real, dimension(10,10,10,10,10,10,10) :: g
 
   a = 1
   b = 2
@@ -24,3 +24,4 @@ program array_dimensions
   g = 7
 
 end program
+

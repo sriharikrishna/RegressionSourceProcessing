@@ -1,6 +1,6 @@
 program bracketing
-  integer,dimension(4) :: a
-  integer :: i
+  integer, dimension(4) :: a
+  integer i
   a(1) = 2
   a(2) = 1
   a(3) = 2

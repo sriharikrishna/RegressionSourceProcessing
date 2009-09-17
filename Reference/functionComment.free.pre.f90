@@ -20,3 +20,19 @@
       end if
     end function f
 
+    subroutine oad_s_f(x,f)
+!     blah blah
+!     aren't these names interesting?: pomentale and gargantini
+      real,intent(out) :: f
+      real :: x
+
+      if ( x <= 0 ) then
+        f = 4.0D0
+      else if ( x <= 39 ) then
+        f = exp(x*(1.0D0/(x+2)))
+      else
+        f = 0
+      end if
+    end subroutine oad_s_f
+
+

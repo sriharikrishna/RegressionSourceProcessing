@@ -6,8 +6,8 @@
 
 subroutine compute(x, y)
   double precision, intent(inout) :: x, y
-  x = x / y
-  y = ( y * .789 ) - 2
+  x = x/y
+  y = (y*.789)-2
 end subroutine
 
 

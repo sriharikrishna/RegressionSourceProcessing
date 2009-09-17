@@ -15,8 +15,8 @@ program arrays
   ix = 5
   i = 10
 
-  x(1) = x(1) * x(4) + 3.1415 - y
-  ix(4) = ix(1) / ix(2) + i
+  x(1) = x(1)*x(4)+3.1415-y
+  ix(4) = ix(1)/ix(2)+i
 
   print *,'x(1) = ', x(1), 'ix(4) = ',ix(4)
 

@@ -6,3 +6,4 @@ program alogTest
    print *,Y
 
 end program alogTest
+ 

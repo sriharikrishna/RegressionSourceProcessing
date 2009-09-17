@@ -19,14 +19,14 @@
 ! c = a * b
 !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
 ! Assign all the elements of array a to be zero, then perform a computation.
 ! assignment a(i) = a(i)/3.1 + b(i)*SQRT(c(i)) for all i.
 !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+!
 ! Fortran 77 Solution
 subroutine compute1()
      REAL x
@@ -45,13 +45,13 @@ subroutine compute1()
        a(ti(1)) = tr(1)
        b(ti(1)) = tr(2)
        c(ti(1)) = tr(3)
-10   CONTINUE
+ 10        CONTINUE
         
 
       DO 20 i=1,20
-        a(i) = (a(i)/3.1) + (b(i) * SQRT(c(i)))
+        a(i) = (a(i)/3.1)+(b(i)*SQRT(c(i)))
         WRITE(*,*) 'a(', i, ')=', a(i)
-20    CONTINUE
+ 20         CONTINUE
 end subroutine
 
 ! Fortran 90 Solution
@@ -64,7 +64,7 @@ subroutine compute2()
   a = x
   b = 9
   c = 68
-  a = (a/3.1) + (b * SQRT(c))
+  a = (a/3.1)+(b*SQRT(c))
   write(*,*) 'a =', a
 end subroutine
 
