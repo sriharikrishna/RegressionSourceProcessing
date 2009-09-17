@@ -384,7 +384,7 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     cmd = postProcess+' '+preprocessedSource+' '+freeFlag+'--freeOutput -o '+postprocessedSource+verbosePrePost
     if runCmd(cmd): raise CommandError, cmd
     fileCompare(postprocessedSource)
-    cmd =compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+" -o " +postprocessedExec+' '+postprocessedSource+' '+extraObjs
+    cmd =compiler+" -free "+optimizeFlag+" "+os.environ['F90FLAGS']+" -o " +postprocessedExec+' '+postprocessedSource+' '+extraObjs
     if runCmd(cmd): raise CommandError, cmd
     cmd='./'+postprocessedExec+' > '+postprocessedOutput
     if runCmd(cmd): raise CommandError, cmd
