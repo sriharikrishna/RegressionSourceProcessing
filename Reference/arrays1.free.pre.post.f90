@@ -9,7 +9,7 @@ program arrays
   double precision :: y
   integer, dimension(10) :: ix
   integer :: i
-
+  
   x = 2.5
   y = 3.5
   ix = 5

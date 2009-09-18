@@ -4,14 +4,16 @@
 !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-subroutine compute(x,y)
+subroutine compute(x, y)
   double precision, intent(inout) :: x, y
   x = x/y
   y = (y*.789)-2
 end subroutine
-subroutine myloop(x,y)
-  double precision, intent(inout) :: x, y
 
+
+subroutine myloop(x, y)
+  double precision, intent(inout) :: x, y
+  
   do while (x>0)
 
      call compute(x,y)
@@ -24,8 +26,10 @@ subroutine myloop(x,y)
      endif
 
   end do
-
+  
 end subroutine
+
+
 program controlflow
   double precision :: x, y
   x = 2
@@ -34,3 +38,4 @@ program controlflow
   call myloop(x,y)
 
 end program
+

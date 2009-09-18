@@ -3,6 +3,11 @@ MODULE psget_I
     REAL(KIND(0.0D0)) FUNCTION psget (I)
       INTEGER, INTENT(IN) :: I
     END FUNCTION psget
+    subroutine oad_s_psget(I,psget)
+    real(KIND(0.0D0)),intent(out) :: psget
+      INTEGER, INTENT(IN) :: I
+    end subroutine
+
   END INTERFACE
 END MODULE
 

@@ -3,9 +3,9 @@
        real myc(6)
        real mya(6)
           where (myc/=0)
-           mya=myb/myc
+           mya = myb/myc
           elsewhere
-           mya=0.
+           mya = 0.
            end where
           end
 	   
@@ -16,7 +16,7 @@
        real, dimension (0:5) :: c=(/3., 0., 4., 0., 5., 6./)
        real, dimension (0:5) :: a
        call	 divide(b, c, a)
-	   if(a(1).EQ.0.) then
+         if(a(1).EQ.0.) then
              print *, "OK"
            else
              print *, "failed"

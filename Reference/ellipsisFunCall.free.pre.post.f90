@@ -12,13 +12,13 @@ program p
   z = oad_ctmp1
   print *,z
 end program
-subroutine oad_s_max_r(a,b,r)
-  real,intent(in) :: a
-  real,intent(in) :: b
-  real,intent(out) :: r
-  if (a>b) then
-    r = a
-  else
-    r = b
-  endif
-end
+      subroutine oad_s_max_r(a,b,r)
+        real,intent(in) :: a
+        real,intent(in) :: b
+        real,intent(out) :: r
+        if (a>b) then
+          r = a
+        else
+          r = b
+        endif
+      end
