@@ -299,6 +299,7 @@ def populateExamplesList(args):
 
 
 def shouldRunTest(testFile) :
+    global globalNewFailCount
     refFile = os.path.join("Reference",testFile)
     failFile = os.path.join("Reference",testFile+'.FAIL')
     if os.path.exists(refFile) and not os.path.exists(failFile) :
@@ -317,12 +318,10 @@ def shouldRunTest(testFile) :
             return False
         if globalOfferAcceptAsDefault and raw_input('run it anyway? (y)/n: ') != 'n' :
             sys.stdout.flush()
-            global globalNewFailCount
             globalNewFailCount -= 1
             return True
         elif raw_input('run it anyway? y/(n): ') == 'y' :
             sys.stdout.flush()
-            global globalNewFailCount
             globalNewFailCount -= 1
             return True
         else :
