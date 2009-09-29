@@ -2,7 +2,7 @@ program alogTest
    real :: Y,X
 
    X = 1
-   Y = ALOG(X)
+   Y = log(X)
    print *,Y
 
 end program alogTest
