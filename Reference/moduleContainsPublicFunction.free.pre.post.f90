@@ -18,9 +18,9 @@
 !         third order bickley function by the rational expansion of
 !         pomentale and gargantini
           double precision :: x,f
-          if (x <= 0) then
+          if (x<=0) then
             f = 1.0D0
-          else if (x <= 39) then
+          elseif (x<=39) then
             f = 2.0D0
           else
             f = ad
@@ -31,9 +31,9 @@
 !         pomentale and gargantini
           double precision,intent(out) :: f
           double precision :: x
-          if (x <= 0) then
+          if (x<=0) then
             f = 1.0D0
-          else if (x <= 39) then
+          elseif (x<=39) then
             f = 2.0D0
           else
             f = ad
@@ -44,11 +44,12 @@
 
       program moduleContainsPublicFunction
         use theModule
+      use OAD_active
         double precision :: x,y
         double precision :: oad_ctmp0
         
         call oad_s_f(x,oad_ctmp0)
         y = oad_ctmp0
-        print *,'y = ', y
+        print *,'y = ',y
       end program moduleContainsPublicFunction
 

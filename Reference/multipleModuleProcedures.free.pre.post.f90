@@ -68,6 +68,7 @@ end module m
 
 program multipleModuleProcedures
   use m
+use OAD_active
   implicit none
   real :: a
   double precision :: b
