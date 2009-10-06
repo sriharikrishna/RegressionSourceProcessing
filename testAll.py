@@ -360,7 +360,7 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     fileCompare(originalOutput)
 
     # set free/fixed
-    freeFlag = re.search('free',basename) and '--free ' or ''
+    freeFlag = re.search('free',basename) and '--inputFormat=free ' or ''
     # set verbose
     verbosePrePost = globalVerbose and ' -v' or ''
 
@@ -380,7 +380,7 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     # Postprocessing
     if not shouldRunTest(postprocessedSource) :
         return
-    cmd = postProcess+' '+preprocessedSource+' '+freeFlag+'--freeOutput -o '+postprocessedSource+verbosePrePost
+    cmd = postProcess+' '+preprocessedSource+' '+freeFlag+'--outputFormat=free -o '+postprocessedSource+verbosePrePost
     if runCmd(cmd): raise CommandError, cmd
     fileCompare(postprocessedSource)
     cmd =compiler+" -free "+optimizeFlag+" "+os.environ['F90FLAGS']+" -o " +postprocessedExec+' '+postprocessedSource+' '+extraObjs
