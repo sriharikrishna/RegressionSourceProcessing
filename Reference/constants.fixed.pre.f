@@ -1,13 +1,13 @@
         module single
         integer, parameter :: float = selected_real_kind ( 6,37 )
         real ( float ) :: pi = 3.1415927_float
-        real ( float ) :: e  = 2.7182818_float
+        real ( float ) :: e = 2.7182818_float
       end module single
 
       module double
         integer, parameter :: float = selected_real_kind ( 15,37 )
         real ( float ) :: pi = 3.141592653589793_float
-        real ( float ) :: e  = 2.718281828459045_float
+        real ( float ) :: e = 2.718281828459045_float
       end module double
 
       program constants

@@ -32,7 +32,7 @@ subroutine compute1()
      REAL x
      REAL a(20), b(20), c(20)
      INTEGER ti(5)
-     REAL    tr(5)
+     REAL tr(5)
 
      x = 5
 
