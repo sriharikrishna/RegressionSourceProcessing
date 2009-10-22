@@ -7,7 +7,6 @@ MODULE psget_I
     real(KIND(0.0D0)),intent(out) :: psget
       INTEGER, INTENT(IN) :: I
     end subroutine
-
   END INTERFACE
 END MODULE
 

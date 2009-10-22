@@ -42,13 +42,11 @@ module m
       zr = z*4.3E0
     end subroutine oad_s_real_erf
 
-
     subroutine oad_s_double_erf(z,zr)
       double precision :: z
       double precision,intent(out) :: zr
       zr = z*5.0D0
     end subroutine oad_s_double_erf
-
 
     subroutine oad_s_real_erfc(z,zr)
       real :: z
@@ -56,13 +54,11 @@ module m
       zr = z*7.0E0
     end subroutine oad_s_real_erfc
 
-
     subroutine oad_s_double_erfc(z,zr)
       double precision :: z
       double precision,intent(out) :: zr
       zr = z*3.0D0
     end subroutine oad_s_double_erfc
-
 
 end module m
 

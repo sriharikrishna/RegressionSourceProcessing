@@ -39,7 +39,6 @@
             f = ad
           end if
         end subroutine oad_s_f
-
       end module theModule
 
       program moduleContainsPublicFunction
