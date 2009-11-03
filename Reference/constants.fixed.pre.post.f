@@ -1,4 +1,4 @@
-  module single
+module single
   integer, parameter :: float = selected_real_kind ( 6,37 )
   real ( float ) :: pi = 3.1415927_float
   real ( float ) :: e = 2.7182818_float
