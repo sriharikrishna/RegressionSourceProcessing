@@ -20,5 +20,5 @@ end program
           r = a
         else
           r = b
-        endif
+        end if
       end

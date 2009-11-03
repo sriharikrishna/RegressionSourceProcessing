@@ -17,5 +17,5 @@ end program maxDouble
           r = a
         else
           r = b
-        endif
+        end if
       end

@@ -23,7 +23,7 @@ subroutine myloop(x, y)
 
      if (y<0) then
        exit
-     endif
+     end if
 
   end do
   

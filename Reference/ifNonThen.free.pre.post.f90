@@ -9,7 +9,7 @@ program ifNonThen
   if (x.le.oad_ctmp0) then
     call oad_s_max_d(x,8.90D0,oad_ctmp1)
     y = oad_ctmp1
-  endif
+  end if
   write(*,*) 'y = ',y
 end program ifNonThen
 
@@ -21,5 +21,5 @@ end program ifNonThen
           r = a
         else
           r = b
-        endif
+        end if
       end
