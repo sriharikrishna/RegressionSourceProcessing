@@ -25,7 +25,7 @@ subroutine myloop(x, y)
        exit
      end if
 
-  end do
+  enddo
   
 end subroutine
 
