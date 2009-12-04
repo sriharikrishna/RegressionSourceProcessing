@@ -1,3 +1,5 @@
+module OAD_intrinsics
+end module
       module theModule
 !       module adapted from SCALE6: src/scalelib/ki3_I.f90
 !       Revision: $Revision: 1.2 $
@@ -6,6 +8,8 @@
 !       State: $State: Stab $
 !       Locker: $Locker:  $
 
+        use OAD_intrinsics
+      use OAD_active
         implicit none
         
         real, parameter :: ad = 3.0D0
@@ -42,8 +46,9 @@
       end module theModule
 
       program moduleContainsPublicFunction
-        use theModule
+        use OAD_intrinsics
       use OAD_active
+        use theModule
         double precision :: x,y
         double precision :: oad_ctmp0
         

@@ -1,3 +1,5 @@
+module OAD_intrinsics
+end module
 MODULE psget_I
   INTERFACE
     REAL(KIND(0.0D0)) FUNCTION psget (I)
@@ -11,8 +13,9 @@ MODULE psget_I
 END MODULE
 
 program interfaceSymtab
-  use psget_I
+  use OAD_intrinsics
 use OAD_active
+  use psget_I
   integer :: i
 
   i = 1

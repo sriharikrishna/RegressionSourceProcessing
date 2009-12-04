@@ -1,4 +1,8 @@
+module OAD_intrinsics
+end module
  subroutine divide (myb, myc, mya)
+use OAD_intrinsics
+ use OAD_active
  real myb(6)
  real myc(6)
  real mya(6)
@@ -12,6 +16,8 @@
 	   
 	   
  program main
+use OAD_intrinsics
+ use OAD_active
  real, dimension (0:5) :: b=(/1. , 2., 3., 4., 5., 6./)
  real, dimension (0:5) :: c=(/3., 0., 4., 0., 5., 6./)
  real, dimension (0:5) :: a

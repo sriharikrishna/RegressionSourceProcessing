@@ -1,3 +1,5 @@
+module OAD_intrinsics
+end module
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
 ! A simple program to test handling of constants
@@ -15,6 +17,8 @@ end subroutine
 
 program myprog
 
+  use OAD_intrinsics
+use OAD_active
   implicit none
 
   character :: char

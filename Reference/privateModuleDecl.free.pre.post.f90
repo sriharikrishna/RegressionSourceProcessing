@@ -1,11 +1,16 @@
+module OAD_intrinsics
+end module
 module theModule
+  use OAD_intrinsics
+use OAD_active
   implicit none
   integer,parameter,private :: a=1
 end module theModule
 
 program privateModuleDecl
-  use theModule
+  use OAD_intrinsics
 use OAD_active
+  use theModule
   implicit none
   integer :: a
   

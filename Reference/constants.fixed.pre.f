@@ -1,3 +1,5 @@
+      module OAD_intrinsics
+      end module
       module single
         integer, parameter :: float = selected_real_kind ( 6,37 )
         real ( float ) :: pi = 3.1415927_float
@@ -17,6 +19,7 @@ C     USE SINGLE selects single precision whereas
 C     USE DOUBLE selects double precision.  Only one
 C     precision can be in selected per subprogram.
 C     Let the main program select single precision.
+      use OAD_intrinsics
       use single
       character (len=60) :: pi_single
       character (len=60) :: e_single
@@ -35,6 +38,7 @@ C     Let the main program select single precision.
       subroutine more_precision
 C
 C     Let the subroutine select double precision.
+      use OAD_intrinsics
       use double
       character (len=60) :: pi_double
       character (len=60) :: e_double

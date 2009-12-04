@@ -1,3 +1,5 @@
+module OAD_intrinsics
+end module
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
 ! A simple program to test array dimensions
@@ -6,6 +8,8 @@
 
 program array_dimensions
 
+  use OAD_intrinsics
+use OAD_active
   implicit none
   real, dimension(10) :: a
   real, dimension(10,10) :: b

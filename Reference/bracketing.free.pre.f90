@@ -1,4 +1,7 @@
+module OAD_intrinsics
+end module
 program bracketing
+use OAD_intrinsics
   integer, dimension(4) :: a
   integer i
   a(1) = 2

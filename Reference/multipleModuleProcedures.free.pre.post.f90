@@ -1,3 +1,5 @@
+module OAD_intrinsics
+end module
 module m
 
   interface oad_s_erf
@@ -17,44 +19,60 @@ module m
   contains
 
     real function real_erf (z) result (zr)
+use OAD_intrinsics
+    use OAD_active
       real :: z
       zr = z*4.3E0
     end function real_erf
 
     double precision function double_erf (z) result (zr)
+use OAD_intrinsics
+    use OAD_active
       double precision :: z
       zr = z*5.0D0
     end function double_erf
 
     real function real_erfc (z) result (zr)
+use OAD_intrinsics
+    use OAD_active
       real :: z
       zr = z*7.0E0
     end function real_erfc
 
     double precision function double_erfc (z) result (zr)
+use OAD_intrinsics
+    use OAD_active
       double precision :: z
       zr = z*3.0D0
     end function double_erfc
 
     subroutine oad_s_real_erf(z,zr)
+use OAD_intrinsics
+    use OAD_active
       real :: z
       real,intent(out) :: zr
       zr = z*4.3E0
     end subroutine oad_s_real_erf
 
     subroutine oad_s_double_erf(z,zr)
+use OAD_intrinsics
+    use OAD_active
       double precision :: z
       double precision,intent(out) :: zr
       zr = z*5.0D0
     end subroutine oad_s_double_erf
 
     subroutine oad_s_real_erfc(z,zr)
+use OAD_intrinsics
+    use OAD_active
       real :: z
       real,intent(out) :: zr
       zr = z*7.0E0
     end subroutine oad_s_real_erfc
 
     subroutine oad_s_double_erfc(z,zr)
+use OAD_intrinsics
+    use OAD_active
       double precision :: z
       double precision,intent(out) :: zr
       zr = z*3.0D0
@@ -63,8 +81,9 @@ module m
 end module m
 
 program multipleModuleProcedures
-  use m
+  use OAD_intrinsics
 use OAD_active
+  use m
   implicit none
   real :: a
   double precision :: b

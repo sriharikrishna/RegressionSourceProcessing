@@ -1,4 +1,7 @@
+module OAD_intrinsics
+end module
     program functionComment
+use OAD_intrinsics
       real :: x(2)
 
       x(1) = 1.5D0
@@ -7,6 +10,7 @@
     end program functionComment
 
     function f(x)
+use OAD_intrinsics
 !     blah blah
 !     aren't these names interesting?: pomentale and gargantini
       real :: x,f
@@ -21,6 +25,7 @@
     end function f
 
     subroutine oad_s_f(x,f)
+use OAD_intrinsics
 !     blah blah
 !     aren't these names interesting?: pomentale and gargantini
       real,intent(out) :: f

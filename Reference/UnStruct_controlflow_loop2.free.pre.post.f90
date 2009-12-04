@@ -1,3 +1,5 @@
+module OAD_intrinsics
+end module
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
 ! A simple program to test control flow (loop).  (Cf. controlflow_loop2.f90)
@@ -5,6 +7,8 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 subroutine compute(x, y)
+use OAD_intrinsics
+use OAD_active
   double precision, intent(inout) :: x, y
   x = x/y
   y = (y*.789)-2
@@ -12,6 +16,8 @@ end subroutine
 
 
 subroutine myloop(x, y)
+use OAD_intrinsics
+use OAD_active
   double precision, intent(inout) :: x, y
   
   do while (x>0)
@@ -31,6 +37,8 @@ end subroutine
 
 
 program controlflow
+use OAD_intrinsics
+use OAD_active
   double precision :: x, y
   x = 2
   y = 8

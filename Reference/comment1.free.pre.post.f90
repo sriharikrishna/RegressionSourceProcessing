@@ -1,4 +1,8 @@
+module OAD_intrinsics
+end module
 program maxDouble
+use OAD_intrinsics
+use OAD_active
   double precision x
   integer i
   x = 3.D0

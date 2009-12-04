@@ -1,3 +1,5 @@
+module OAD_intrinsics
+end module
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
 ! A program with F77 and F90 style array operations
@@ -29,6 +31,8 @@
 !
 ! Fortran 77 Solution
 subroutine compute1()
+use OAD_intrinsics
+use OAD_active
      REAL x
      REAL a(20), b(20), c(20)
      INTEGER ti(5)
@@ -56,6 +60,8 @@ end subroutine
 
 ! Fortran 90 Solution
 subroutine compute2()
+  use OAD_intrinsics
+use OAD_active
   implicit none
   real :: x
   real, dimension(20) :: a, b, c
@@ -70,6 +76,8 @@ end subroutine
 
 
 program f77_f90_arrays
+use OAD_intrinsics
+use OAD_active
   double precision :: x, y
   x = 2
   y = 8
