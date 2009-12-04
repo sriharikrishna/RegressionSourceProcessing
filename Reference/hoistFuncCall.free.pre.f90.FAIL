@@ -1,1 +1,1 @@
-the preprocessor is not hoisting it (see http://newtrac.mcs.anl.gov/projects/openAD/ticket/10 )
+the preprocessor is not hoisting it; see <a href="http://trac.mcs.anl.gov/projects/openAD/ticket/10">bug report<a>
