@@ -3,9 +3,11 @@ end module
     program functionComment
 use OAD_intrinsics
       real :: x
+      real :: oad_ctmp0
 
       x = 1.5D0
-      print *,f(x)
+      call oad_s_f(x,oad_ctmp0)
+      print *,oad_ctmp0
     end program functionComment
 
     function f(x)
