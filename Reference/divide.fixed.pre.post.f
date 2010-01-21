@@ -9,7 +9,7 @@ use OAD_intrinsics
     where (myc/=0)
      mya = myb/myc
     elsewhere
-     mya = 0.
+     mya=0.
      end where
     end
 	   

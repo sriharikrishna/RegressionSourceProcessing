@@ -5,6 +5,6 @@ use OAD_intrinsics
 use OAD_active
 
   real x
-  x = 1.0
+  x=1.0
   write(*,*) x
 end program

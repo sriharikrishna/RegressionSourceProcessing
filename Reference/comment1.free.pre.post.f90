@@ -9,7 +9,7 @@ use OAD_active
   if (x>2.0D0) then
     x = x-1.0D0
   endif
-  do i = 1,2,1
+  do i=1,2,1
     x = x+1.0
   enddo
   write(*,*) 'x = ',x

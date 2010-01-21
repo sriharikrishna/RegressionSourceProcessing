@@ -31,7 +31,7 @@ use OAD_active
        exit
      end if
 
-  enddo
+  end do
   
 end subroutine
 

@@ -18,7 +18,7 @@ subroutine myloop(x, y)
 use OAD_intrinsics
   double precision, intent(inout) :: x, y
   
-  do while (x > 0)
+  do while (x>0)
 
      call compute(x, y)
 

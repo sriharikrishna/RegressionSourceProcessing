@@ -21,9 +21,9 @@ end module
 !         third order bickley function by the rational expansion of
 !         pomentale and gargantini
           double precision :: x,f
-          if (x <= 0) then
+          if (x<=0) then
             f = 1.0D0
-          else if (x <= 39) then
+          elseif (x<=39) then
             f = 2.0D0
           else
             f = ad
@@ -34,9 +34,9 @@ end module
 !         pomentale and gargantini
           double precision,intent(out) :: f
           double precision :: x
-          if (x <= 0) then
+          if (x<=0) then
             f = 1.0D0
-          else if (x <= 39) then
+          elseif (x<=39) then
             f = 2.0D0
           else
             f = ad

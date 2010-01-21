@@ -32,10 +32,10 @@ program p
   integer :: i
   real :: oad_ctmp0
   double precision :: oad_ctmp1
-  i = 2
-  r = 2.0
-  d = 2.0D0
-  i = max(i,3)
+  i=2
+  r=2.0
+  d=2.0D0
+  i=max(i,3)
   call oad_s_max(r,2.5,oad_ctmp0)
   r = oad_ctmp0
   call oad_s_max(d,2.5D0,oad_ctmp1)

@@ -27,8 +27,8 @@ character (len=60) :: e_single
 integer :: eslen, pislen
 write(UNIT=pi_single,FMT=*) pi
   write(UNIT=e_single,FMT=*) e
-  pislen = len_trim(adjustl(pi_single))
-  eslen = len_trim(adjustl(e_single))
+  pislen=len_trim(adjustl(pi_single))
+  eslen=len_trim(adjustl(e_single))
 if ((pislen.GE.7).AND.(eslen.GE.7)) then
      call more_precision()
 else
@@ -47,8 +47,8 @@ character (len=60) :: e_double
   integer :: edlen, pidlen
 write(UNIT=pi_double,FMT=*) pi
   write(UNIT=e_double,FMT=*) e
-  pidlen = len_trim(adjustl(pi_double))
-  edlen = len_trim(adjustl(e_double))
+  pidlen=len_trim(adjustl(pi_double))
+  edlen=len_trim(adjustl(e_double))
 
 if ((pidlen.GE.16).AND.(edlen.GE.16)) then
   print *,"OK"

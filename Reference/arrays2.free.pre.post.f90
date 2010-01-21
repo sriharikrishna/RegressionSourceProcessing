@@ -44,7 +44,7 @@ use OAD_active
      tr(2) = 9
      tr(3) = 68
 
-     DO 10 i = 1,20
+     DO 10 i=1,20
        ti(1) = i
        a(ti(1)) = tr(1)
        b(ti(1)) = tr(2)
@@ -52,7 +52,7 @@ use OAD_active
  10              CONTINUE
         
 
-      DO 20 i = 1,20
+      DO 20 i=1,20
         a(i) = (a(i)/3.1)+(b(i)*SQRT(c(i)))
         WRITE(*,*) 'a(',i,')=',a(i)
  20               CONTINUE

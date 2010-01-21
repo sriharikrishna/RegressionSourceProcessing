@@ -12,10 +12,10 @@
           where (c/=0)
            a = b/c
           elsewhere
-           a = 0.
+           a=0.
            end where
 	   
-         if(a(1).EQ.0.) then
+         if (a(1).EQ.0.) then
              print *, "OK"
            else
              print *, "failed"

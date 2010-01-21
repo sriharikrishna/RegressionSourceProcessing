@@ -19,9 +19,9 @@ use OAD_intrinsics
 !     aren't these names interesting?: pomentale and gargantini
       real :: x,f
 
-      if ( x <= 0 ) then
+      if (x<=0) then
         f = 4.0D0
-      else if ( x <= 39 ) then
+      elseif (x<=39) then
         f = exp(x*(1.0D0/(x+2)))
       else
         f = 0
@@ -35,9 +35,9 @@ use OAD_intrinsics
       real,intent(out) :: f
       real :: x
 
-      if ( x <= 0 ) then
+      if (x<=0) then
         f = 4.0D0
-      else if ( x <= 39 ) then
+      elseif (x<=39) then
         f = exp(x*(1.0D0/(x+2)))
       else
         f = 0
