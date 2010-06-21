@@ -3,24 +3,24 @@ module OAD_intrinsics
     module procedure oad_s_max_r,oad_s_max_d
   end interface
   contains
-    subroutine oad_s_max_r(a,b,r)
-      real,intent(in) :: a
-      real,intent(in) :: b
+    subroutine oad_s_max_r(a0,a1,r)
+      real,intent(in) :: a0
+      real,intent(in) :: a1
       real,intent(out) :: r
-      if (a>b) then
-        r = a
+      if (a0>a1) then
+        r = a0
       else
-        r = b
+        r = a1
       end if
     end subroutine
-    subroutine oad_s_max_d(a,b,r)
-      double precision,intent(in) :: a
-      double precision,intent(in) :: b
+    subroutine oad_s_max_d(a0,a1,r)
+      double precision,intent(in) :: a0
+      double precision,intent(in) :: a1
       double precision,intent(out) :: r
-      if (a>b) then
-        r = a
+      if (a0>a1) then
+        r = a0
       else
-        r = b
+        r = a1
       end if
     end subroutine
 end module
