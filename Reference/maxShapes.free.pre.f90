@@ -7,12 +7,16 @@ module OAD_intrinsics
       double precision,intent(in) :: a0
       double precision,intent(in),dimension(:) :: a1
       double precision,intent(out),dimension(:) :: r
+      integer :: i1
       integer :: l1
-      do l1 = lbound(a1,1),ubound(a1,1)
-      if (a0>a1(l1)) then
-        r(l1) = a0
+      integer :: u1
+      l1 = lbound(a1,1)
+      u1 = ubound(a1,1)
+      do i1 = l1,u1
+      if (a0>a1(i1)) then
+        r(i1) = a0
       else
-        r(l1) = a1(l1)
+        r(i1) = a1(i1)
       end if
       end do
     end subroutine
