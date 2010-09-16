@@ -1,11 +1,1 @@
-OpenAD                                         hg:320+:7791a13fbded+
-Open64                                         svn:899
-OpenADFortTk                                   hg:1148:dfdfe21bb0f9
-OpenAnalysis                                   hg:25:7a9899d3b1b6
-xercesc                                        svn:48
-xaifBooster                                    hg:1304+:5e61d88436c4+
-xaif                                           hg:220:c502cc04138b
-angel                                          hg:157:4624a496416b
-boost/boost                                    svn:51018
-RevolveF9X                                     hg:5:9c396b3f9f57
-OpenADFortTk/tools/SourceProcessing            hg:600+:39a9e233eec4+
+OpenADFortTk/tools/SourceProcessing            hg:635:5970f430cfe3

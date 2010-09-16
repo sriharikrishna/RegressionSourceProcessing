@@ -523,10 +523,10 @@ def main():
 		    return -1
             printSep("*","",sepLength)
 	    j = j + 1
-        # if we have updated any of the reference output, also update the version information for all the components of OpenAD
+        # if we have updated any of the reference output, also update the version information
         if globalUpdatedReferenceFlag:
             openadStatusCmd = os.path.join(os.environ['OPENADROOT'],'bin','openadStatus')
-            cmd = openadStatusCmd+' -ld | grep -v Regression | grep -v Examples | sed "s|\.\./OpenAD|OpenAD   |" > '+os.path.join('Reference','versionInfo.txt')
+            cmd = openadStatusCmd+' -ld | grep -v Regression | grep  SourceProcessing > '+os.path.join('Reference','versionInfo.txt')
             if runCmd(cmd): raise CommandError, cmd
     except CommandError, cmd:
 	print 'CommandError: error while running "'+str(cmd)+'"\n'
