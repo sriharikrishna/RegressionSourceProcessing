@@ -470,7 +470,7 @@ def main():
         optimizeFlag='-O0 -g'
         if options.optimize:
 	  optimizeFlag='-O3'
-        extraFiles = glob.glob(os.path.join('Extras','*.f90'))
+        extraFiles = glob.glob(os.path.join('..','Extras','*.f90'))
         extraFiles.sort()
         extraFiles.reverse()
         extraObjs=""
