@@ -6,7 +6,7 @@ syntax: glob
 *.MOD
 *.orig
 *~
-TimerSource/postInput????.f
+PrePostTimings/postInput????.f
 syntax: regexp
 ^[^/]+\.f90
 ^[^/]+\.f
