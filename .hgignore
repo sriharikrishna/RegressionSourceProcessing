@@ -8,6 +8,6 @@ syntax: glob
 *~
 PrePostTimings/postInput????.f
 syntax: regexp
-^[^/]+\.f90
-^[^/]+\.f
-^[^/]+\.out
+^PrePost/[^/]+\.f90
+^PrePost/[^/]+\.f
+^PrePost/[^/]+\.out
