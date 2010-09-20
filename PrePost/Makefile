@@ -1,2 +1,2 @@
 clean: 
-	rm -f *.o *.f *.f90 *.out *.run *.mod *.mod-whirl *.MOD TimerSource/postProcess.make
+	rm -f *.o *.f *.f90 *.out *.run *.mod *.mod-whirl *.MOD 
