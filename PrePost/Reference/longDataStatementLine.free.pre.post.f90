@@ -1,7 +1,7 @@
 module OAD_intrinsics
 end module
       program longDataStatementLine
-use OAD_intrinsics
+      use OAD_intrinsics
       use OAD_active
       REAL, DIMENSION(42) :: COEF
       DATA COEF/ 1.D0, 1.D0, -1.D0, 3.D0, -3.D0, 5.D0, 3.D0, -30.D0, 35.D0, 15.D&

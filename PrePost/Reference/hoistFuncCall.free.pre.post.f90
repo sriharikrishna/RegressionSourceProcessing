@@ -1,7 +1,7 @@
 module OAD_intrinsics
 end module
     program functionComment
-use OAD_intrinsics
+    use OAD_intrinsics
     use OAD_active
       real :: x
       real :: oad_ctmp0
@@ -12,7 +12,7 @@ use OAD_intrinsics
     end program functionComment
 
     function f(x)
-use OAD_intrinsics
+    use OAD_intrinsics
     use OAD_active
       real :: x,f
 
@@ -20,7 +20,7 @@ use OAD_intrinsics
     end function f
 
     subroutine oad_s_f(x,f)
-use OAD_intrinsics
+    use OAD_intrinsics
     use OAD_active
       real,intent(out) :: f
       real :: x

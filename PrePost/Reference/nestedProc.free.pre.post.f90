@@ -4,13 +4,13 @@ subroutine s1()
   real :: x
   contains
   real function foo(x)
-use OAD_intrinsics
+  use OAD_intrinsics
   use OAD_active
     integer:: x
     foo=x
   end function
   subroutine oad_s_foo(x,foo)
-use OAD_intrinsics
+  use OAD_intrinsics
   use OAD_active
     integer:: x
     real,intent(out) :: foo
@@ -22,13 +22,13 @@ subroutine s2()
   real :: x
   contains
   real function foo(x)
-use OAD_intrinsics
+  use OAD_intrinsics
   use OAD_active
    integer :: x
    foo=x
   end function
   subroutine oad_s_foo(x,foo)
-use OAD_intrinsics
+  use OAD_intrinsics
   use OAD_active
    integer :: x
    real,intent(out) :: foo

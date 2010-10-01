@@ -12,20 +12,20 @@ end module
    end interface
    contains
    subroutine assign_pointer(this, a)
-use OAD_intrinsics
+   use OAD_intrinsics
    use OAD_active
      type(mytype),intent(out) :: this
      integer, target, intent(in) :: a
      this%pr => a
    end subroutine assign_pointer
    integer function get_val(this)
-use OAD_intrinsics
+   use OAD_intrinsics
    use OAD_active
       type(mytype),intent(in) :: this
       get_val=this%pr
    end function get_val
    subroutine oad_s_get_val(this,get_val)
-use OAD_intrinsics
+   use OAD_intrinsics
    use OAD_active
       type(mytype),intent(in) :: this
       integer,intent(out) :: get_val

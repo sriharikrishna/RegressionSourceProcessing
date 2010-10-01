@@ -4,7 +4,7 @@ end module
 	   
 	   
  program main
-use OAD_intrinsics
+ use OAD_intrinsics
  use OAD_active
  real, dimension (0:5) :: b=(/1. , 2., 3., 4., 5., 6./)
  real, dimension (0:5) :: c=(/3., 0., 4., 0., 5., 6./)

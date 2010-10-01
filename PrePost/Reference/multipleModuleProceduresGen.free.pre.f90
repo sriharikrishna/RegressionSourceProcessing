@@ -19,52 +19,52 @@ module m
   contains
 
     real function real_erf (z) result (zr)
-use OAD_intrinsics
+    use OAD_intrinsics
       real :: z
       zr = z*4.3E0
     end function real_erf
 
     double precision function double_erf (z) result (zr)
-use OAD_intrinsics
+    use OAD_intrinsics
       double precision :: z
       zr = z*5.0D0
     end function double_erf
 
     real function real_erfc (z) result (zr)
-use OAD_intrinsics
+    use OAD_intrinsics
       real :: z
       zr = z*7.0E0
     end function real_erfc
 
     double precision function double_erfc (z) result (zr)
-use OAD_intrinsics
+    use OAD_intrinsics
       double precision :: z
       zr = z*3.0D0
     end function double_erfc
 
     subroutine oad_s_real_erf(z,zr)
-use OAD_intrinsics
+    use OAD_intrinsics
       real :: z
       real,intent(out) :: zr
       zr = z*4.3E0
     end subroutine oad_s_real_erf
 
     subroutine oad_s_double_erf(z,zr)
-use OAD_intrinsics
+    use OAD_intrinsics
       double precision :: z
       double precision,intent(out) :: zr
       zr = z*5.0D0
     end subroutine oad_s_double_erf
 
     subroutine oad_s_real_erfc(z,zr)
-use OAD_intrinsics
+    use OAD_intrinsics
       real :: z
       real,intent(out) :: zr
       zr = z*7.0E0
     end subroutine oad_s_real_erfc
 
     subroutine oad_s_double_erfc(z,zr)
-use OAD_intrinsics
+    use OAD_intrinsics
       double precision :: z
       double precision,intent(out) :: zr
       zr = z*3.0D0
