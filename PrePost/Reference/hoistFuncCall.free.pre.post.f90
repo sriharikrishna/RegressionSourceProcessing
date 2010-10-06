@@ -22,8 +22,8 @@ end module
     subroutine oad_s_f(x,f)
     use OAD_intrinsics
     use OAD_active
-      real,intent(out) :: f
       real :: x
+      real,intent(out) :: f
 
       f = 5
     end subroutine oad_s_f

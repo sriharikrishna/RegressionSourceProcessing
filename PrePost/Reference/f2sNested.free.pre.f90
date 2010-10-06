@@ -22,15 +22,15 @@ function foo(aT)
 end function
 
 subroutine oad_s_bar(r,bar)
-  real,intent(out) :: bar
   real :: r
+  real,intent(out) :: bar
   bar = 2*r
 end subroutine oad_s_bar
 
 subroutine oad_s_foo(aT,foo)
   type(t) :: aT
-  real,intent(out) :: foo
   real :: oad_ctmp0
+  real,intent(out) :: foo
   call oad_s_bar(aT%a(2),oad_ctmp0)
   foo = oad_ctmp0
 end subroutine oad_s_foo

@@ -12,8 +12,8 @@ end function
 
 subroutine oad_s_foo(x,y)
 use OAD_intrinsics
-  real,intent(out) :: y
   real :: x
+  real,intent(out) :: y
   y = 2*x
 end subroutine oad_s_foo
 

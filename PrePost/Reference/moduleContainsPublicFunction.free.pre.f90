@@ -32,8 +32,8 @@ end module
         subroutine oad_s_f(x,f)
 !         third order bickley function by the rational expansion of
 !         pomentale and gargantini
-          double precision,intent(out) :: f
           double precision :: x
+          double precision,intent(out) :: f
           if (x<=0) then
             f = 1.0D0
           elseif (x<=39) then

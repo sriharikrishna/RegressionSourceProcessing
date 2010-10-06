@@ -7,8 +7,8 @@ use OAD_intrinsics
 end function
 subroutine oad_s_foo(i,foo)
 use OAD_intrinsics
-  real,intent(out) :: foo
   real :: i
+  real,intent(out) :: foo
   foo = 2*i
 end subroutine oad_s_foo
 
