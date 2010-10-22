@@ -1,26 +1,28 @@
 module OAD_intrinsics
 end module
 module single
+  use OAD_active
   integer, parameter :: float = selected_real_kind ( 6,37 )
   real ( float ) :: pi = 3.1415927_float
   real ( float ) :: e = 2.7182818_float
 end module single
 
 module double
+  use OAD_active
   integer, parameter :: float = selected_real_kind ( 15,37 )
   real ( float ) :: pi = 3.141592653589793_float
   real ( float ) :: e = 2.718281828459045_float
 end module double
 
 program constants
+use OAD_active
+use OAD_intrinsics
 !
 !     Select a precision for the constants for PI and E.
 !     USE SINGLE selects single precision whereas
 !     USE DOUBLE selects double precision.  Only one
 !     precision can be in selected per subprogram.
 !     Let the main program select single precision.
-use OAD_intrinsics
-use OAD_active
 use single
 character (len=60) :: pi_single
 character (len=60) :: e_single
@@ -37,10 +39,10 @@ end if
 end program constants
 
 subroutine more_precision
+use OAD_active
+use OAD_intrinsics
 !
 !     Let the subroutine select double precision.
-use OAD_intrinsics
-use OAD_active
 use double
 character (len=60) :: pi_double
 character (len=60) :: e_double

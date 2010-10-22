@@ -1,29 +1,31 @@
 module OAD_intrinsics
 end module
 function foo(i)
-use OAD_intrinsics
-use OAD_active
+  use OAD_active
+  use OAD_intrinsics
   real i
   real foo
   foo=i
 end function
 subroutine oad_s_foo(i,foo)
-use OAD_intrinsics
-use OAD_active
+  use OAD_active
+  use OAD_intrinsics
   real i
   real,intent(out) :: foo
   foo=i
 end subroutine oad_s_foo
 
 program p
-use OAD_intrinsics
 use OAD_active
+use OAD_intrinsics
 interface
 function foo(i)
+  use OAD_active
   real i
   real foo
 end function
 subroutine oad_s_foo(i,foo)
+  use OAD_active
   real i
   real foo
 end subroutine

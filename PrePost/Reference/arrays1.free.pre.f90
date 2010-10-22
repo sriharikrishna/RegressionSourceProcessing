@@ -7,7 +7,7 @@ end module
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 program arrays
-use OAD_intrinsics
+  use OAD_intrinsics
   double precision, dimension(20) :: x
   double precision :: y
   integer, dimension(10) :: ix

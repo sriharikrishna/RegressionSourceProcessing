@@ -3,6 +3,8 @@ end module
 ! from  http://www.cs.rpi.edu/~szymansk/oof90.html
 
    module assign_pointer_class
+   use OAD_active
+   use OAD_intrinsics
    type mytype
       private
       integer, pointer :: pr
@@ -12,29 +14,23 @@ end module
    end interface
    contains
    subroutine assign_pointer(this, a)
-   use OAD_intrinsics
-   use OAD_active
      type(mytype),intent(out) :: this
      integer, target, intent(in) :: a
      this%pr => a
    end subroutine assign_pointer
    integer function get_val(this)
-   use OAD_intrinsics
-   use OAD_active
       type(mytype),intent(in) :: this
       get_val=this%pr
    end function get_val
    subroutine oad_s_get_val(this,get_val)
-   use OAD_intrinsics
-   use OAD_active
       type(mytype),intent(in) :: this
       integer,intent(out) :: get_val
       get_val=this%pr
    end subroutine oad_s_get_val
    end module assign_pointer_class
    program main
+     use OAD_active
      use OAD_intrinsics
-   use OAD_active
      use assign_pointer_class
      type(mytype) :: x
 ! THIS IS THE RIGHT WAY

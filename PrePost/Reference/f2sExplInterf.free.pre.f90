@@ -1,13 +1,13 @@
 module OAD_intrinsics
 end module
 function foo(i)
-use OAD_intrinsics
+  use OAD_intrinsics
   real i
   real foo
   foo=i
 end function
 subroutine oad_s_foo(i,foo)
-use OAD_intrinsics
+  use OAD_intrinsics
   real i
   real,intent(out) :: foo
   foo=i

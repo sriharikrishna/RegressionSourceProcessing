@@ -1,4 +1,5 @@
 module OAD_intrinsics
+  use OAD_active
   interface oad_s_max
     module procedure oad_s_max_d_01
   end interface
@@ -22,8 +23,8 @@ module OAD_intrinsics
     end subroutine
 end module
 program maxShapes
+  use OAD_active
   use OAD_intrinsics
-use OAD_active
   implicit none
   double precision x(3),a,b,y
   dimension :: y(3)

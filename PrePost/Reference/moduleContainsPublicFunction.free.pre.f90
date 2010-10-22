@@ -1,6 +1,7 @@
 module OAD_intrinsics
 end module
       module theModule
+      use OAD_intrinsics
 !       module adapted from SCALE6: src/scalelib/ki3_I.f90
 !       Revision: $Revision: 1.2 $
 !       Author: $Author: LMPetrie $
@@ -8,7 +9,6 @@ end module
 !       State: $State: Stab $
 !       Locker: $Locker:  $
 
-        use OAD_intrinsics
         implicit none
         
         real, parameter :: ad = 3.0D0

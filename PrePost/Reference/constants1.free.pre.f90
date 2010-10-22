@@ -16,8 +16,8 @@ subroutine test
 end subroutine
 
 program myprog
-
   use OAD_intrinsics
+
   implicit none
 
   character :: char

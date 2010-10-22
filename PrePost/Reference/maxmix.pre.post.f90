@@ -1,4 +1,5 @@
 module OAD_intrinsics
+  use OAD_active
   interface oad_s_max
     module procedure oad_s_max_r,oad_s_max_d
   end interface
@@ -25,8 +26,8 @@ module OAD_intrinsics
     end subroutine
 end module
 program p
+  use OAD_active
   use OAD_intrinsics
-use OAD_active
   implicit none
   double precision :: d
   real :: r

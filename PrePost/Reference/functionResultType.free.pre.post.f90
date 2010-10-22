@@ -1,19 +1,17 @@
 module OAD_intrinsics
 end module
 module m
+use OAD_active
+use OAD_intrinsics
 
 contains
 
 function foo(x) result(y)
-use OAD_intrinsics
-use OAD_active
   real :: x,y
   y = 2*x
 end function
 
 subroutine oad_s_foo(x,y)
-use OAD_intrinsics
-use OAD_active
   real :: x
   real,intent(out) :: y
   y = 2*x
@@ -22,8 +20,8 @@ end subroutine oad_s_foo
 end module
 
 program p
+  use OAD_active
   use OAD_intrinsics
-use OAD_active
   use m
   implicit none
   real :: x,y

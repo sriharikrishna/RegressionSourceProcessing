@@ -1,8 +1,8 @@
 module OAD_intrinsics
 end module
  program p
+  use OAD_active
   use OAD_intrinsics
- use OAD_active
   integer i
   integer j
   j=1

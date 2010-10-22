@@ -1,8 +1,8 @@
 module OAD_intrinsics
 end module
 program p
-use OAD_intrinsics
 use OAD_active
+use OAD_intrinsics
 integer i,j
 j=3
 if (j<3) then

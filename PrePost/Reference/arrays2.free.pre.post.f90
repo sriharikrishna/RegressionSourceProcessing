@@ -31,8 +31,8 @@ end module
 !
 ! Fortran 77 Solution
 subroutine compute1()
-use OAD_intrinsics
-use OAD_active
+     use OAD_active
+     use OAD_intrinsics
      REAL x
      REAL a(20), b(20), c(20)
      INTEGER ti(5)
@@ -60,8 +60,8 @@ end subroutine
 
 ! Fortran 90 Solution
 subroutine compute2()
+  use OAD_active
   use OAD_intrinsics
-use OAD_active
   implicit none
   real :: x
   real, dimension(20) :: a, b, c
@@ -76,8 +76,8 @@ end subroutine
 
 
 program f77_f90_arrays
-use OAD_intrinsics
-use OAD_active
+  use OAD_active
+  use OAD_intrinsics
   double precision :: x, y
   x = 2
   y = 8

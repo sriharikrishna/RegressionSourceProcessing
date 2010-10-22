@@ -7,8 +7,8 @@ end module
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 program array_dimensions
-
   use OAD_intrinsics
+
   implicit none
   real, dimension(10) :: a
   real, dimension(10,10) :: b

@@ -1,4 +1,5 @@
 module OAD_intrinsics
+  use OAD_active
   interface oad_s_max
     module procedure oad_s_max_r
   end interface
@@ -15,8 +16,8 @@ module OAD_intrinsics
     end subroutine
 end module
 program p
-use OAD_intrinsics
-use OAD_active
+  use OAD_active
+  use OAD_intrinsics
   real :: u=1.0,v=1.1,w=1.2,x=0.9,y=0.8,z
   real :: oad_ctmp0
   real :: oad_ctmp1

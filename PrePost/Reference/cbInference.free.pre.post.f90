@@ -1,8 +1,8 @@
 module OAD_intrinsics
 end module
 subroutine foo(x)
-use OAD_intrinsics
 use OAD_active
+use OAD_intrinsics
 IMPLICIT DOUBLE PRECISION (A-H,O-Z)
 integer NLAYR2
 COMMON /CMPMR4/ CHFCOF(2,3), NLAYR2(3)
@@ -11,8 +11,8 @@ x=chfcof(1,:)
 end subroutine
 
 program p
-use OAD_intrinsics
 use OAD_active
+use OAD_intrinsics
 IMPLICIT DOUBLE PRECISION (A-H,O-Z)
 COMMON /CMPMR4/ CHFCOF(2,3), NLAYR2(3)
 dimension x(3)

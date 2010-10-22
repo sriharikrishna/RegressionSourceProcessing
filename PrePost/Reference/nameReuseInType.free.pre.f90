@@ -5,7 +5,6 @@ module m1
 end module
 
 module m2
- use OAD_intrinsics
  use m1
  type t2
    integer::mi

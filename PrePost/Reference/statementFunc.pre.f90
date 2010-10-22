@@ -16,7 +16,7 @@ program statementFunc
 end program statementFunc
 
 subroutine foo(i,j,k,d)
-use OAD_intrinsics
+  use OAD_intrinsics
 
   integer i,j,k
   double precision d(10)

@@ -13,13 +13,13 @@
       end module double
 
       program constants
+      use OAD_intrinsics
 C
 C     Select a precision for the constants for PI and E.
 C     USE SINGLE selects single precision whereas
 C     USE DOUBLE selects double precision.  Only one
 C     precision can be in selected per subprogram.
 C     Let the main program select single precision.
-      use OAD_intrinsics
       use single
       character (len=60) :: pi_single
       character (len=60) :: e_single
@@ -36,9 +36,9 @@ C     Let the main program select single precision.
       end program constants
 
       subroutine more_precision
+      use OAD_intrinsics
 C
 C     Let the subroutine select double precision.
-      use OAD_intrinsics
       use double
       character (len=60) :: pi_double
       character (len=60) :: e_double

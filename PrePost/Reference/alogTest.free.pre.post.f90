@@ -1,8 +1,8 @@
 module OAD_intrinsics
 end module
 program alogTest
-use OAD_intrinsics
-use OAD_active
+   use OAD_active
+   use OAD_intrinsics
    real :: Y,X
 
    X = 1

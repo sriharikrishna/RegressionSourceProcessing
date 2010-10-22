@@ -1,8 +1,8 @@
 module OAD_intrinsics
 end module
 program statementFunc
+  use OAD_active
   use OAD_intrinsics
-use OAD_active
   implicit None
 
   integer :: a,b,c
@@ -17,8 +17,8 @@ use OAD_active
 end program statementFunc
 
 subroutine foo(i,j,k,d)
-use OAD_intrinsics
-use OAD_active
+  use OAD_active
+  use OAD_intrinsics
 
   integer i,j,k
   double precision d(10)

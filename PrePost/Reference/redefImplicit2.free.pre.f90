@@ -1,14 +1,13 @@
 module OAD_intrinsics
 end module
 module m
+use OAD_intrinsics
 contains
 subroutine foo(x)
-use OAD_intrinsics
 implicit double precision (x)
 print *,x
 end subroutine
 subroutine bar(x)
-use OAD_intrinsics
 implicit none
 double precision x
 print *,x

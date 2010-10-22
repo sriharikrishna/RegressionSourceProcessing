@@ -1,12 +1,12 @@
 module OAD_intrinsics
 end module
 module m1
+  use OAD_active
   integer :: mi
 end module
 
 module m2
- use OAD_intrinsics
-use OAD_active
+ use OAD_active
  use m1
  type t2
    integer::mi
@@ -15,8 +15,8 @@ use OAD_active
 end module
 
 program p
+ use OAD_active
  use OAD_intrinsics
-use OAD_active
  use m2
  implicit none
  type(t2) :: at2

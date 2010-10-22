@@ -1,8 +1,8 @@
 module OAD_intrinsics
 end module
 program simpleWrite
-use OAD_intrinsics
-use OAD_active
+  use OAD_active
+  use OAD_intrinsics
 
   real x
   x=1.0

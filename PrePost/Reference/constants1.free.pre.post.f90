@@ -8,6 +8,7 @@ end module
 
 
 subroutine test
+  use OAD_active
 
   character :: char_test = 'T'
   real :: num1_test = 6.0
@@ -16,9 +17,9 @@ subroutine test
 end subroutine
 
 program myprog
-
+  use OAD_active
   use OAD_intrinsics
-use OAD_active
+
   implicit none
 
   character :: char

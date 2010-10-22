@@ -1,8 +1,8 @@
 module OAD_intrinsics
 end module
 module m
-use OAD_intrinsics
 use OAD_active
+use OAD_intrinsics
 implicit none
 
 type t
@@ -39,8 +39,8 @@ end subroutine oad_s_foo
 end module
 
 program p
+  use OAD_active
   use OAD_intrinsics
-use OAD_active
   use m
   type(t) :: aT
   real y

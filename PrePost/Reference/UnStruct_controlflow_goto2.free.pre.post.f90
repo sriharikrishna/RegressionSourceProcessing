@@ -1,8 +1,8 @@
 module OAD_intrinsics
 end module
 program p
-use OAD_intrinsics
-use OAD_active
+ use OAD_active
+ use OAD_intrinsics
  integer i
  i=4
  goto (10,20,30), i

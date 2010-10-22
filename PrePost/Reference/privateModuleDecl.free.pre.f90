@@ -1,7 +1,6 @@
 module OAD_intrinsics
 end module
 module theModule
-  use OAD_intrinsics
   implicit none
   integer,parameter,private :: a=1
 end module theModule

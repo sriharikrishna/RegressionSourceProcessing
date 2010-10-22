@@ -1,4 +1,5 @@
 module OAD_intrinsics
+  use OAD_active
   interface oad_s_maxval
     module procedure oad_s_maxval_d_1
   end interface
@@ -12,8 +13,8 @@ module OAD_intrinsics
     end subroutine
 end module
 program maxValTest
+  use OAD_active
   use OAD_intrinsics
-use OAD_active
   implicit none
   double precision x(4),y
   double precision :: oad_ctmp0
