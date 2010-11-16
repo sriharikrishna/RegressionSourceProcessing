@@ -13,6 +13,6 @@ program p
   real y
   type(tt) :: aTT
   aTT%aT%i=2.0
-  y=foo(aTT%aT%i)
+  y=foo(aTT%aT%i+2.0)
   print *,y
 end program
