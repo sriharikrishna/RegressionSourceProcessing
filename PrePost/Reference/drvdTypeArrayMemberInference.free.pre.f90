@@ -23,10 +23,8 @@ program p
   real y
   type(tt) :: aTT
   real :: oad_ctmp0
-  real :: oad_ctmp1
   aTT%aT(2)%i=2.0
-  oad_ctmp1 = aTT%aT(2)%i
-  call oad_s_foo(oad_ctmp1,oad_ctmp0)
+  call oad_s_foo(aTT%aT(2)%i,oad_ctmp0)
   y = oad_ctmp0
   print *,y
 end program
