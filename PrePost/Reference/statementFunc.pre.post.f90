@@ -26,9 +26,9 @@ subroutine foo(i,j,k,d)
   integer sf
   sf(a,b) = a+b-2
   
-  d(1) = d(i+j-2+k)
-  d(2) = d((i+j-2)+k)
-  d(3) = d(i+j-2+j-2+k)
+  d(1) = d((i+j-2)+k)
+  d(2) = d(((i+j-2))+k)
+  d(3) = d(((i+j-2)+j-2)+k)
   
 end subroutine foo
 

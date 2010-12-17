@@ -14,7 +14,7 @@ integer i
 fun(l) = i+l
   integer :: oad_ctmp0
 i=3
-oad_ctmp0 = i+2
+oad_ctmp0 = (i+2)
 call foo(oad_ctmp0)
 end
 
