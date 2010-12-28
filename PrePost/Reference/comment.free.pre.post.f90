@@ -17,14 +17,20 @@ module OAD_intrinsics
 end module
 program maxDouble
   use OAD_active
+! c0
   use OAD_intrinsics
   implicit none
+! c1
   double precision x,y
+! c2
   double precision :: oad_ctmp0
 ! c3
   x = 3.1415D0
+! c4
   call oad_s_max(x,8.90D0,oad_ctmp0)
   y = oad_ctmp0
   write(*,*) 'y = ',y
+! c6
 end program maxDouble
+!c7
 
