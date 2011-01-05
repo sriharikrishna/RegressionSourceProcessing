@@ -28,7 +28,7 @@ program maxDouble
   call oad_s_max(x,8.90D0,oad_ctmp0)
   y = oad_ctmp0
   write(*,*) 'y = ',y
-! c6
+! c6 
 end program maxDouble
 !c7
 
