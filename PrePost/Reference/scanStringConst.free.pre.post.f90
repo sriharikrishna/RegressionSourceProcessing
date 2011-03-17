@@ -3,9 +3,9 @@ end module
 program scanStringConst
       use OAD_active
       use OAD_intrinsics
-      character(len=1),dimension(0:27),parameter :: char_array=(/'0','1','2','3'&
-     &,'4','5','6','7','8','9', 'a','b','c','d','e','f',' ',',','r','*','$','&',&
-     & '+','-','z','.','o','p'/)
+      character(len=1),dimension(0:27),parameter :: char_array = (/'0','1','2','&
+     &3','4','5','6','7','8','9','a','b','c','d','e','f',' ',',','r','*','$','&'&
+     &,'+','-','z','.','o','p'/)
 
 
       print *,char_array(4)
