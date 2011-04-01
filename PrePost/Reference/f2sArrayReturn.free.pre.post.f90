@@ -7,7 +7,7 @@ contains
   function foo (s)
     real :: s(:)
     real, dimension(size(s)-1) :: foo
-    foo(1:size(s)-1)=s(1:size(s)-1)
+    foo(1:size(s)-1) = s(1:size(s)-1)
   end function
   subroutine oad_s_foo(s,foo)
     real :: s(:)
