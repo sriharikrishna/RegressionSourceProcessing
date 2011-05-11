@@ -6,7 +6,7 @@ function foo1(x)
   double precision:: x,foo1,foo2
   foo1=x
   return
-entry foo2(x)
+entry foo2 ( x )
   foo2 = 2*x
 end
 subroutine oad_s_foo1(x,foo1)
