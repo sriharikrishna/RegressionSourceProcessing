@@ -140,6 +140,8 @@ def queryFileCopy(queryStr):
         sys.stdout.flush()
         return 'n'
     else:
+	if (globalBatchMode): 
+            raise ComparisonError("Batch mode assumes no difference or one has to accept all differences")		
         answer = ''
         if (globalOfferAcceptAsDefault):
             answer = raw_input(' (y)/n: ')
@@ -477,6 +479,8 @@ def main():
 		if not (globalBatchMode):
 		    if (raw_input("Do you want to continue? (y)/n: ") == "n"):
 			return -1
+                else: 
+	            return -1
             except CommandError, cmd:
                 print 'ERROR in test %i of %i (%s): CommandError while running "%s"' % (j+1,len(examples),examples[j],cmd)
 	        globalNewFailCount+=1
