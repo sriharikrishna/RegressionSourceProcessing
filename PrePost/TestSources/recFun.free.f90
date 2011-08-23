@@ -3,7 +3,7 @@ module m
   contains 
 
   recursive integer function foo(x)
-    integer :: x
+    real :: x
     if (x>0) then 
       foo=foo(x-1)+x
     else 
@@ -14,6 +14,7 @@ end module
 
 program p 
   use m 
-  print *,foo(6)
+  r=foo(6.0)
+  print *,r
 end program
     

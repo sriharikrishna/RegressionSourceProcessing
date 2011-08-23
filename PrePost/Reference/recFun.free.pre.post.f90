@@ -7,7 +7,7 @@ use OAD_intrinsics
   contains
 
   recursive integer function foo(x)
-    integer :: x
+    real :: x
     if (x>0) then
       foo = foo(x-1)+x
     else
@@ -16,9 +16,9 @@ use OAD_intrinsics
   end function
 
   recursive subroutine oad_s_foo(x,foo)
-    integer :: x
+    real :: x
     integer :: oad_ctmp0
-    integer :: oad_ctmp1
+    real :: oad_ctmp1
     integer,intent(out) :: foo
     if (x>0) then
       oad_ctmp1 = x-1
@@ -34,6 +34,9 @@ program p
   use OAD_active
   use OAD_intrinsics
   use m
-  print *,foo(6)
+  integer :: oad_ctmp0
+  call oad_s_foo(6.0,oad_ctmp0)
+  r = oad_ctmp0
+  print *,r
 end program
     
