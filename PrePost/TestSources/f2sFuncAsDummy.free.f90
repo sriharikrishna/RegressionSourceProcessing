@@ -11,8 +11,8 @@ end module
 function bar(f,xbar)
   real::xbar,bar
   interface 
-    function foo(xfoo)
-      real:: xfoo,foo
+    function f(xf)
+      real:: xf,f
     end function
   end interface
   bar=f(xbar)

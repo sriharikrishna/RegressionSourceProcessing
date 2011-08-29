@@ -21,7 +21,7 @@ end subroutine oad_s_foo1
 program p
   use OAD_intrinsics
   double precision :: x, foo1, foo2
-  external:: foo1,foo2
+  external oad_s_foo1,oad_s_foo2
   double precision :: oad_ctmp0
   double precision :: oad_ctmp1
   x=2.0

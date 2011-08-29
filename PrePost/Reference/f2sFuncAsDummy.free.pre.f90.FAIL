@@ -1,1 +1,0 @@
-preprocessor does not handle function pointers; see <a href="https://trac.mcs.anl.gov/projects/openAD/ticket/277">bug report</a>
