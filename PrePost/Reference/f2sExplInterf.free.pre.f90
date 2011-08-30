@@ -22,7 +22,7 @@ function foo(i)
 end function
 subroutine oad_s_foo(i,foo)
   real i
-  real foo
+  real,intent(out) :: foo
 end subroutine
 end interface
   real :: oad_ctmp0

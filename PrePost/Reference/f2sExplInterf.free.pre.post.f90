@@ -27,7 +27,7 @@ end function
 subroutine oad_s_foo(i,foo)
   use OAD_active
   real i
-  real foo
+  real,intent(out) :: foo
 end subroutine
 end interface
   real :: oad_ctmp0
