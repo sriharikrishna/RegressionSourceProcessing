@@ -22,8 +22,8 @@ end module
 
 program p
   use OAD_intrinsics
-  use m1, dpp=>double
   use m2
+  use m1, dpp=>double
   real(dp) ::y
   real(dpp)::x
   real(dp) :: oad_ctmp0
