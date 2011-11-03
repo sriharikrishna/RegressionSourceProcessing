@@ -353,7 +353,7 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
         return
     verboseTransform = globalVerbose and ' -v' or ''
     # perform transform
-    cmd=transformFile+' -d '+os.path.join("Tests",exName,'oad_transformed.decls.f90')+' '+targBase+targExtension+' -o '+transformedSource+verboseTransform
+    cmd=transformFile+' --check -d '+os.path.join("Tests",exName,'oad_transformed.decls.f90')+' '+targBase+targExtension+' -o '+transformedSource+verboseTransform
     if runCmd(cmd): raise CommandError, cmd
     fileCompare(transformedSource, refTransformedSource)
     # compile + link 
