@@ -49,7 +49,7 @@ end module
         use theModule
         double precision :: x,y
         double precision :: oad_ctmp0
-        
+        x=ad
         call oad_s_f(x,oad_ctmp0)
         y = oad_ctmp0
         print *,'y = ', y

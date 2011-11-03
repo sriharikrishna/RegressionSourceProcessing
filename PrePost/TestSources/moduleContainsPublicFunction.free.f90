@@ -30,7 +30,7 @@
       program moduleContainsPublicFunction
         use theModule
         double precision :: x,y
-        
+        x=ad 
         y = f(x)
         print *,'y = ', y
       end program moduleContainsPublicFunction
