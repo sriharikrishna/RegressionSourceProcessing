@@ -12,7 +12,7 @@ end module
 
         implicit none
         
-        real, parameter :: ad = 3.0D0
+        real, parameter, public :: ad = 3.0D0
         private
         public :: f
         public :: oad_s_f
@@ -49,6 +49,7 @@ end module
         use OAD_active
         use OAD_intrinsics
         use theModule
+        implicit none
         double precision :: x,y
         double precision :: oad_ctmp0
         x=ad

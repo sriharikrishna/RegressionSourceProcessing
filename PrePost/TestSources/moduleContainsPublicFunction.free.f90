@@ -8,7 +8,7 @@
         
         implicit none
         
-        real, parameter :: ad = 3.0D0
+        real, parameter, public :: ad = 3.0D0
         private
         public :: f
         
@@ -29,6 +29,7 @@
 
       program moduleContainsPublicFunction
         use theModule
+	implicit none
         double precision :: x,y
         x=ad 
         y = f(x)
