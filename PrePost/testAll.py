@@ -367,7 +367,7 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     verbosePrePost = globalVerbose and ' -v' or ''
 
     # perform preprocessing
-    cmd=preProcess+' '+originalSource+' '+freeFlag+'-o '+preprocessedSource+verbosePrePost
+    cmd=preProcess+' --check '+originalSource+' '+freeFlag+'-o '+preprocessedSource+verbosePrePost
     if runCmd(cmd): raise CommandError, cmd
     fileCompare(preprocessedSource)
 
@@ -382,7 +382,7 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     # Postprocessing
     if not shouldRunTest(postprocessedSource) :
         return
-    cmd = postProcess+' '+preprocessedSource+' '+freeFlag+'--outputFormat=free -o '+postprocessedSource+verbosePrePost
+    cmd = postProcess+' --check '+preprocessedSource+' '+freeFlag+'--outputFormat=free -o '+postprocessedSource+verbosePrePost
     if runCmd(cmd): raise CommandError, cmd
     fileCompare(postprocessedSource)
     cmd =compiler+" -free "+optimizeFlag+" "+os.environ['F90FLAGS']+" -o " +postprocessedExec+' '+postprocessedSource+' '+extraObjs
