@@ -15,7 +15,7 @@ use m
 integer, parameter :: dp=kind(1.0d0)
 real(dp) :: y
 integer :: i,j
-  real(kind=dp) :: oad_ctmp0
+  double precision :: oad_ctmp0
 i=2
 j=3
 oad_ctmp0 = real(i+1,kind=dp)/real(j-1,kind=dp)

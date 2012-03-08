@@ -23,7 +23,7 @@ program p
  use m1
  real(dp) :: x1
  real (kind=rk) :: x2
-  real(dp) :: oad_ctmp0
+  double precision :: oad_ctmp0
  x1=1.0D0
  x2=2.0D0
  oad_ctmp0 = x1+x2

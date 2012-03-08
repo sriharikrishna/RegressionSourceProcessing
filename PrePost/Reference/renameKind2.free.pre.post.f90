@@ -29,7 +29,7 @@ program p
   use m1, dpp=>double
   use m2
   real(dpp)::x
-  real(dpp) :: oad_ctmp0
+  double precision :: oad_ctmp0
   call oad_s_foo(oad_ctmp0)
   x = oad_ctmp0
   print *,x

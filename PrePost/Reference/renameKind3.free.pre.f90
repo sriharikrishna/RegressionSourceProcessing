@@ -26,7 +26,7 @@ program p
   use m1, dpp=>double
   real(dp) ::y
   real(dpp)::x
-  real(dp) :: oad_ctmp0
+  double precision :: oad_ctmp0
   call oad_s_foo(oad_ctmp0)
   x = oad_ctmp0
   print *,x

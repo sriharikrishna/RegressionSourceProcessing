@@ -46,7 +46,7 @@ end module
 program p
 use OAD_intrinsics
 use PMR4_CFDCV
-  integer(kind = KIND(1)) :: oad_ctmp0
+  integer :: oad_ctmp0
 i=2
 call oad_s_PMR4_CFDCVInit(i,oad_ctmp0)
 j = oad_ctmp0
