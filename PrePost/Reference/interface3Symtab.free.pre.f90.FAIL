@@ -1,0 +1,8 @@
+  File "/sandbox/Argonne/Dev/Current/OpenAD/OpenADFortTk/tools/SourceProcessing/Canon/canon.py", line 115, in shouldSubroutinizeFunction
+    appTypeEntry = appType(theApp,self.__myUnit.symtab,parentStmt.lineNumber)
+  File "/sandbox/Argonne/Dev/Current/OpenAD/OpenADFortTk/tools/SourceProcessing/PyFort/inference.py", line 509, in appType
+    return _TypeContext(lineNumber,localSymtab)._appType(anApp)
+  File "/sandbox/Argonne/Dev/Current/OpenAD/OpenADFortTk/tools/SourceProcessing/PyFort/inference.py", line 428, in _appType
+    if isinstance(returnType.entryKind,TypetabEntry.ArrayEntryKind):
+AttributeError: 'NoneType' object has no attribute 'entryKind'
+
