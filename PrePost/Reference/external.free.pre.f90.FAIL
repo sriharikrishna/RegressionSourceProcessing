@@ -1,0 +1,1 @@
+pushed foo symbol too high as a module symbol and then failing with a name clash on valid code 
