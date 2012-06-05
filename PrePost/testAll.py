@@ -336,9 +336,10 @@ def shouldRunTest(testFile) :
 def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     import filecmp
     printSep("*","** testing %i of %i (%s)" % (exNum,totalNum,exName),sepLength)
+    if not shouldRunTest(exName) :
+        return
     cmd="ln -sf "+os.path.join("TestSources",exName) + " " + exName
     if runCmd(cmd): raise CommandError, cmd
-
     preProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing','preProcess.py')
     postProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing','postProcess.py')
     basename,ext=os.path.splitext(exName)
@@ -352,8 +353,6 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     preprocessedOutput = basename+'.pre.out'
     postprocessedOutput = basename+'.pre.post.out'
 
-    if not shouldRunTest(preprocessedSource) :
-        return
     # compile and run original
     cmd=compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+' -o '+originalExec+' '+exName+' '+extraObjs
     if runCmd(cmd): raise CommandError, cmd
@@ -380,8 +379,6 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
         raise ComparisonError,'diff '+originalOutput+' '+preprocessedOutput
 
     # Postprocessing
-    if not shouldRunTest(postprocessedSource) :
-        return
     cmd = postProcess+' --check '+preprocessedSource+' '+freeFlag+'--outputFormat=free -o '+postprocessedSource+verbosePrePost
     if runCmd(cmd): raise CommandError, cmd
     fileCompare(postprocessedSource)
