@@ -19,7 +19,7 @@ end function
 function foo(aT)
   type(t) :: aT
   real :: foo
-  foo=bar(aT%a(2))
+  foo = bar(aT%a(2))
 end function
 
 subroutine oad_s_bar(r,bar)
