@@ -31,7 +31,6 @@ program maxDouble
   y = oad_ctmp0
   write(*,*) 'y = ',y
 ! c6
-
 end program maxDouble
 !c7
 
