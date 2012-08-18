@@ -18,6 +18,7 @@ globalKnownFailCount=0
 globalNewFailCount=0
 globalUpdatedReferenceFlag = False
 globalDiffCmd='diff'
+globalCompilersList=['ifort','gfortran','g95','f95','openf95']
 
 class MultiColumnOutput:
 
@@ -340,8 +341,23 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
         return
     cmd="ln -sf "+os.path.join("TestSources",exName) + " " + exName
     if runCmd(cmd): raise CommandError, cmd
-    preProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing','preProcess.py')
-    postProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing','postProcess.py')
+    preProcessor='preProcess.py'
+    postProcessor='postProcess.py'
+    exOptsFileName=os.path.join("TestSources",exName+'.options')
+    exOpts={}
+    if (os.path.exists(exOptsFileName)):
+        exOptsFile=open(os.path.join(exOptsFileName))
+        try :
+            exOpts=eval(exOptsFile.read().strip())
+        except Exception, e :
+            raise ConfigError, "options file "+exOptsFileName+" does not specify a Python dictionary "+str(e)
+        if globalVerbose:
+            sus.stdout.write("  extra options are : "+str(exOpts))
+        permittedKeys=globalCompilersList+[preProcessor,postProcessor]
+        if (any(map(lambda l: not (l in permittedKeys),exOpts.keys()))):
+            raise ConfigError, "options file "+exOptsFileName+" contains key not in "+str(premittedkeys)
+    preProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing',preProcessor)
+    postProcess=os.path.join(os.environ['OPENADFORTTK_BASE'],'tools','SourceProcessing',postProcessor)
     basename,ext=os.path.splitext(exName)
     originalSource = basename+ext
     preprocessedSource = basename+'.pre'+ext
@@ -367,6 +383,8 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
 
     # perform preprocessing
     cmd=preProcess+' --check '+originalSource+' '+freeFlag+'-o '+preprocessedSource+verbosePrePost
+    if (preProcessor in exOpts):
+       cmd+=' '+exOpts[preProcessor] 
     if runCmd(cmd): raise CommandError, cmd
     fileCompare(preprocessedSource)
 
@@ -380,6 +398,8 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
 
     # Postprocessing
     cmd = postProcess+' --check '+preprocessedSource+' '+freeFlag+'--outputFormat=free -o '+postprocessedSource+verbosePrePost
+    if (postProcessor in exOpts):
+       cmd+=' '+exOpts[postProcessor] 
     if runCmd(cmd): raise CommandError, cmd
     fileCompare(postprocessedSource)
     cmd =compiler+" -free "+optimizeFlag+" "+os.environ['F90FLAGS']+" -o " +postprocessedExec+' '+postprocessedSource+' '+extraObjs
@@ -397,11 +417,10 @@ def main():
     import glob
     from optparse import OptionParser
     usage = '%prog [options] '
-    compilers=['ifort','gfortran','g95','f95','openf95']
     compilerOpts='[ '
-    for i in compilers :
+    for i in globalCompilersList :
         compilerOpts+=i
-        if  i != compilers[-1]:
+        if  i != globalCompilersList[-1]:
             compilerOpts+=" | "
     compilerOpts+=" ]"        
     opt = OptionParser(usage=usage)
@@ -426,7 +445,7 @@ def main():
                    help="let the pipeline components produce some extra output",
                    action='store_true',default=False)
     opt.add_option('-c','--compiler',dest='compiler',
-                   type='choice', choices=compilers,
+                   type='choice', choices=globalCompilersList,
                    help="pick a compiler (defaults to ifort) from the following list: " +compilerOpts+" - the compiler should be in PATH; we use F90FLAGS when set in the environment",
                    default='ifort')
     opt.add_option('-O','--optimize',dest='optimize',
