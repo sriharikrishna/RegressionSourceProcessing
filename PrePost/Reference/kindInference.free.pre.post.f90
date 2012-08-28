@@ -32,4 +32,5 @@ program p
  x2=2.0D0
  oad_ctmp0 = x1+x2
  call foo(oad_ctmp0)
+! determine the kind of the temporary
 end program
