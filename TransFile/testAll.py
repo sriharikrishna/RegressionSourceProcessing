@@ -338,6 +338,20 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
         l.append(os.path.join("Tests",exName,targBase+'.f90'))
     if (len(l)!=1):
         raise ConfigError("found "+str(len(l))+" possible target files in "+exName)
+    exOptsFileName=os.path.join("Tests",exName,'options')
+    exOpts={}
+    if (os.path.exists(exOptsFileName)):
+        exOptsFile=open(os.path.join(exOptsFileName))
+        try :
+            exOpts=eval(exOptsFile.read().strip())
+        except Exception, e :
+            raise ConfigError, "options file "+exOptsFileName+" does not specify a Python dictionary "+str(e)
+        if globalVerbose:
+            sys.stdout.write("  extra options are : "+str(exOpts))
+        permittedKeys=['OAD_active']
+        if (any(map(lambda l: not (l in permittedKeys),exOpts.keys()))):
+            raise ConfigError, "options file "+exOptsFileName+" contains key not in "+str(permittedKeys)
+
     targExtension=(os.path.splitext(l[0]))[1]
     cmd="ln -sf "+os.path.join("Tests",exName,'*.f*') + " ."
     if runCmd(cmd): raise CommandError, cmd
@@ -356,6 +370,16 @@ def runTest(exName,exNum,totalNum,compiler,optimizeFlag,extraObjs):
     cmd=transformFile+' --check -d '+os.path.join("Tests",exName,'oad_transformed.decls.f90')+' '+targBase+targExtension+' -o '+transformedSource+verboseTransform
     if runCmd(cmd): raise CommandError, cmd
     fileCompare(transformedSource, refTransformedSource)
+    
+    # prepare the active module
+    activeModuleDir="scalar"
+    if "OAD_active" in exOpts:
+        activeModuleDir=exOpts["OAD_active"]
+    cmd="ln -sf "+os.path.join('..','Extras',activeModuleDir,'OAD_active.f90')+" ."
+    if runCmd(cmd): raise CommandError, cmd
+    cmd=compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+" -c OAD_active.f90"
+    if runCmd(cmd): raise CommandError, cmd
+
     # compile + link 
     cmd=compiler+" "+optimizeFlag+" "+os.environ['F90FLAGS']+" -o " +transformedExec+' oad_transformed.f90 '+transformedSource+' driver.f90 ' +extraObjs
     if runCmd(cmd): raise CommandError, cmd
